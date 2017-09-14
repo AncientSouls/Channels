@@ -148,8 +148,8 @@ export default class Channel {
 
     /**
      * @protected
-     * @param {String}
-     * @description
+     * @param {String} data
+     * @description Sending data
      */
     sendPackage(data) {
         if (!lodash.isString(data)) {
