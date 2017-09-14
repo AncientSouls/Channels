@@ -1,5 +1,4 @@
 import crypto from 'crypto';
-import lodash from 'lodash';
 import uuid from 'uuid';
 
 /**
@@ -12,23 +11,9 @@ export default class Channel {
      * @param {Function} onConnected - Callback after connection
      * @param {Function} onDisconnected - Callback after disconnection
      * @param {Function} gotPackage - Callback when receiving a packet
+     * @param {Function} sendPackage - Callback package sending
      */
-    constructor(onConnected, onDisconnected, gotPackage) {
-        /* Checking the argument onConnected */
-        if (!lodash.isFunction(onConnected)) {
-            throw new Error('Variable \'onConnected\' is not a function.');
-        }
-
-        /* Checking the argument onDisconnected */
-        if (!lodash.isFunction(onDisconnected)) {
-            throw new Error('Variable \'onDisconnected\' is not a function.');
-        }
-
-        /* Checking the argument gotPackage */
-        if (!lodash.isFunction(gotPackage)) {
-            throw new Error('Variable \'gotPackage\' is not a function.');
-        }
-
+    constructor(onConnected, onDisconnected, gotPackage, sendPackage) {
         /**
          * @type {Function}
          * @description Callback after connection
@@ -48,6 +33,12 @@ export default class Channel {
         this.gotPackage = gotPackage;
 
         /**
+         * @type {Function}
+         * @description Callback package sending
+         */
+        this.sendPackage = sendPackage;
+
+        /**
          * @protected
          * @type {Boolean}
          * @description Connection status
@@ -59,14 +50,14 @@ export default class Channel {
          * @type {Boolean}
          * @description Requirement authorization
          */
-        this.isAuthorization = true;
+        this.onAuthorization = true;
 
         /**
          * @protected
          * @type {String}
          * @description Channel identifier
          */
-        this.channelid = null;
+        this.id = null;
 
         /**
          * @protected
@@ -106,7 +97,7 @@ export default class Channel {
      * @description Processing incoming packets
      */
     handlerIncomingPacket(request) {
-        if (!lodash.isString(request)) {
+        if (!this._isString(request)) {
             throw new Error('');
         }
 
@@ -124,41 +115,29 @@ export default class Channel {
         }
 
         /* Authorization package */
-        else if (request[0] == 'connection') {
+        else if (request[0] == 'connect') {
             this._registration(request[1]);
         }
 
         /* Exceptions in the work */
         else {
-            throw new Error(request[1]);
+            this._handlerError(request[1]);
         }
-    }
-
-    /**
-     * @param {String} request - Request for processing
-     * @description Processing outgoing packets
-     */
-    handlerOutgoingPacket(request) {
-        if (!lodash.isString(request)) {
-            throw new Error('');
-        }
-
-        this.handlerIncomingPacket(request);
     }
 
     /**
      * @protected
-     * @param {String} data
-     * @description Sending data
+     * @param {String} Submitted data
+     * @description Generates and sends the packet
      */
-    sendPackage(data) {
-        if (!lodash.isString(data)) {
+    send(data) {
+        if (!this._isString(data)) {
             throw new Error('');
         }
 
         data = this._encryption(data);
         var request = this._formationPackage(data);
-        this.handlerOutgoingPacket(request);
+        this.sendPackage(request);
     }
 
     /**
@@ -167,8 +146,8 @@ export default class Channel {
      */
     connected() {
         this.isConnected = true;
-        this.channelid = this._generationUUID();
-        this.onConnected(this.channelid);
+        this.id = this._generationUUID();
+        this.onConnected(this.id);
     }
 
     /**
@@ -177,22 +156,24 @@ export default class Channel {
      */
     disconnected() {
         this.isConnected = false;
-        this.onDisconnected(this.channelid);
+        this.onDisconnected(this.id);
     }
 
     /**
      * @protected
+     * @param {Boolean=} [onAuthorization] - Switch authorization
      * @description Sends the authorization package
      */
-    connection() {
+    connect(onAuthorization) {
+        onAuthorization = onAuthorization || true;
         var key = null;
 
-        if (this.isAuthorization) {
+        if (this.onAuthorization && onAuthorization) {
             key = this._authorization();
         }
 
-        var request = this._formationPackage(key, 'connection');
-        this.handlerOutgoingPacket(request);
+        var request = this._formationPackage(key, 'connect');
+        this.sendPackage(request);
     }
 
     /**
@@ -200,9 +181,9 @@ export default class Channel {
      * @description Sending a disconnect packet.
      * Also performs the closure of the communication channel.
      */
-    disconnection() {
+    disconnect() {
         var request = this._formationPackage(null, 'close');
-        this.handlerOutgoingPacket(request);
+        this.sendPackage(request);
         this.disconnected();
     }
 
@@ -227,8 +208,8 @@ export default class Channel {
      */
     _registration(incomingKey) {
         /* The key was not transferred */
-        if (!lodash.isString(incomingKey)) {
-            this.isAuthorization = false;
+        if (!this._isString(incomingKey)) {
+            this.onAuthorization = false;
             this.sharedKey = null;
             this._decipher = null;
             this._cipher = null;
@@ -239,7 +220,7 @@ export default class Channel {
             this.sharedKey = this._ecdh.computeSecret(incomingKey, 'base64');
             this._decipher = crypto.createDecipher('aes192', this.sharedKey);
             this._cipher = crypto.createCipher('aes192', this.sharedKey);
-            this.isAuthorization = true;
+            this.onAuthorization = true;
         }
 
         /* Complete the connection setup */
@@ -293,5 +274,23 @@ export default class Channel {
      */
     _generationUUID() {
         return uuid.v4();
+    }
+
+    /**
+     * @param {String} error - Error text
+     * @description The error handler
+     */
+    _handlerError(error) {
+        throw new Error(error);
+    }
+
+    /**
+     * @protected
+     * @param {String} value - The variable to check
+     * @returns {Boolean} Result of checking
+     * @description Checks the type of the variable
+     */
+    _isString(value) {
+        return typeof value === 'string';
     }
 }

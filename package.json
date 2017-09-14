@@ -1,13 +1,12 @@
 {
     "name": "ancient-channels",
-    "version": "0.0.0-alpha.1",
+    "version": "0.0.0-alpha.2",
     "description": "",
     "main": "lib/index.js",
     "scripts": {
         "build": "babel ./src --presets es2015 --no-comments --source-maps --out-dir ./",
         "test": "npm run build && mocha tests/index.js --require source-map-support/register",
-        "start": "npm run build && node ./lib/index.js",
-        "check": "eslint ./src/lib/*"
+        "check": "eslint ./src/lib/"
     },
     "author": {
         "name": "Valentin Popov",
@@ -32,7 +31,6 @@
         "source-map-support": "^0.4.17"
     },
     "dependencies": {
-        "lodash": "^4.17.4",
         "uuid": "^3.1.0"
     }
 }
