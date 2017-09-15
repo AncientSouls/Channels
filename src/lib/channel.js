@@ -47,13 +47,6 @@ export default class Channel {
 
         /**
          * @protected
-         * @type {Boolean}
-         * @description Requirement authorization
-         */
-        this.onAuthorization = true;
-
-        /**
-         * @protected
          * @type {String}
          * @description Channel identifier
          */
@@ -161,14 +154,14 @@ export default class Channel {
 
     /**
      * @protected
-     * @param {Boolean=} [onAuthorization] - Switch authorization
+     * @param {Boolean=} [authorization] - Switch authorization
      * @description Sends the authorization package
      */
-    connect(onAuthorization) {
-        onAuthorization = onAuthorization || true;
-        var key = null;
+    connect(authorization) {
+        authorization = !!authorization;
 
-        if (this.onAuthorization && onAuthorization) {
+        var key = null;
+        if (authorization) {
             key = this._authorization();
         }
 
@@ -209,7 +202,6 @@ export default class Channel {
     _registration(incomingKey) {
         /* The key was not transferred */
         if (!this._isString(incomingKey)) {
-            this.onAuthorization = false;
             this.sharedKey = null;
             this._decipher = null;
             this._cipher = null;
@@ -220,7 +212,6 @@ export default class Channel {
             this.sharedKey = this._ecdh.computeSecret(incomingKey, 'base64', 'base64');
             this._decipher = crypto.createDecipher('aes192', this.sharedKey);
             this._cipher = crypto.createCipher('aes192', this.sharedKey);
-            this.onAuthorization = true;
         }
 
         /* Complete the connection setup */
@@ -258,7 +249,7 @@ export default class Channel {
      * @description Encrypts the source data
      */
     _encryption(data) {
-        if (this._cipher && this.onAuthorization) {
+        if (this._cipher && this.sharedKey) {
             var encrypted = this._cipher.update(data, 'utf8', 'hex');
             return encrypted += this._cipher.final('hex');
         }
@@ -272,7 +263,7 @@ export default class Channel {
      * @description Decrypts the encrypted data
      */
     _decryption(data) {
-        if (this._decipher && this.onAuthorization) {
+        if (this._decipher && this.sharedKey) {
             var decrypted = this._decipher.update(data, 'hex', 'utf8');
             return decrypted += this._decipher.final('utf8');
         }
