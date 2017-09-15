@@ -1,3 +1,4 @@
+import complexFunctions from './channel/complexFunctions';
 import basicFunctions from './channel/basicFunctions';
 import adapter from './channel/adapter';
 
@@ -6,6 +7,7 @@ export default function () {
         describe('Function check:', () => {
             adapter();
             basicFunctions();
+            complexFunctions();
         });
     });
 }
