@@ -73,6 +73,15 @@ export default function () {
     });
 
     describe('Send Package', () => {
+        it('Incorrect package', () => {
+            var channel = new Channel();
+            assert.throws(() => channel.send(undefined));
+            assert.throws(() => channel.send(123456));
+            assert.throws(() => channel.send(true));
+            assert.throws(() => channel.send(null));
+            assert.throws(() => channel.send({}));
+        });
+
         it('Call cycle', (done) => {
             var channel = new Channel(null, null, doneFunction, loopback);
             var data = 'Laughing man';
