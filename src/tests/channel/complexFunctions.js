@@ -72,9 +72,9 @@ export default function () {
         });
     });
 
-    describe('Send Package', () => {
+    describe('Send Package:', () => {
         it('Incorrect package', () => {
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
             assert.throws(() => channel.send(undefined));
             assert.throws(() => channel.send(123456));
             assert.throws(() => channel.send(true));
@@ -91,9 +91,27 @@ export default function () {
 
         it('Formation of the package', () => {
             var channel = new Channel(null, null, gotPackage, loopback);
-            var data = 'Laughing man';
+            var data = 'Work earns Salvation';
             channel.send(data);
             assert.equal(global.request, data);
+        });
+    });
+
+    describe('Connect:', () => {
+        it('Authorization', () => {
+            var channel = new Channel(null, null, null, gotPackage);
+            channel.connect(true);
+
+            var request = channel._disassemblePackage(global.request);
+            assert.isString(request[1]);
+        });
+
+        it('No authorization', () => {
+            var channel = new Channel(null, null, null, gotPackage);
+            channel.connect(false);
+
+            var request = channel._disassemblePackage(global.request);
+            assert.isNull(request[1]);
         });
     });
 }
