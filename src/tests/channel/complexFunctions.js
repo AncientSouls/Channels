@@ -114,4 +114,21 @@ export default function () {
             assert.isNull(request[1]);
         });
     });
+
+    describe('Disconnect:', () => {
+        it('Call \'disconnected()\'', (done) => {
+            var channel = new Channel(null, null, null, gotPackage);
+            channel.disconnected = done;
+            channel.disconnect();
+        });
+
+        it('Package', () => {
+            var channel = new Channel(null, null, null, gotPackage);
+            channel.onDisconnected = () => {};
+            channel.disconnect();
+
+            var request = channel._disassemblePackage(global.request);
+            assert.equal(request[0], 'close');
+        });
+    });
 }

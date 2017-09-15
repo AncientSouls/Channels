@@ -54,8 +54,8 @@ export default function () {
         });
 
         it('Call the adapter', (done) => {
-            global.done = done;
             var channel = new Channel(doneFunction, null, null, null);
+            global.done = done;
             channel.connected();
         });
     });
@@ -68,8 +68,8 @@ export default function () {
         });
 
         it('Call the adapter', (done) => {
-            global.done = done;
             var channel = new Channel(null, doneFunction, null, null);
+            global.done = done;
             channel.disconnected();
         });
     });
@@ -97,8 +97,6 @@ export default function () {
         it('Without a key', () => {
             var channel = new Channel(trueFunction, null, null, null);
             channel._registration(null);
-
-            assert.isFalse(channel.onAuthorization);
             assert.isNull(channel.sharedKey);
             assert.isNull(channel._decipher);
             assert.isNull(channel._cipher);
@@ -108,8 +106,6 @@ export default function () {
             var channel = new Channel(trueFunction, null, null, null);
             var key = channel._authorization();
             channel._registration(key);
-
-            assert.isTrue(channel.onAuthorization);
             assert.isString(channel.sharedKey);
             assert.isObject(channel._decipher);
             assert.isObject(channel._cipher);
