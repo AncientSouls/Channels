@@ -19,7 +19,7 @@ before_install:
     - npm install --only=development
 
 install:
-    - npm install --global mocha-lcov-reporter
+    - npm install --global source-map-support
     - npm install --global istanbul
     - npm install --global codecov
 
@@ -27,5 +27,5 @@ before_script:
     - npm run build
 
 script:
-    - istanbul cover ./node_modules/mocha/bin/mocha tests/index.js --require source-map-support/register --reporter lcovonly -- -R spec
+    - istanbul cover ./node_modules/mocha/bin/mocha tests/index.js --require source-map-support/register -- --recursive
     - codecov
