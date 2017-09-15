@@ -7,6 +7,9 @@ node_js:
     - "5"
     - "4"
 
+env:
+    - CODECOV_TOKEN="61766506-526c-4fa0-9c17-539b4f14fc3d"
+
 notifications:
     email:
         - info@valentineus.link
@@ -14,3 +17,14 @@ notifications:
 before_install:
     - npm install --only=production
     - npm install --only=development
+
+install:
+    - npm install --global istanbul
+    - npm install --global codecov
+
+before_script:
+    - npm run build
+
+script:
+    - istanbul cover mocha --reporter lcovonly -- -R spec
+    - codecov
