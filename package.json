@@ -5,7 +5,7 @@
     "main": "lib/index.js",
     "scripts": {
         "build": "babel ./src --presets es2015 --minified --no-comments --source-maps --out-dir ./",
-        "test": "istanbul cover node_modules/mocha/bin/_mocha && codecov",
+        "test": "npm run build && istanbul cover mocha tests/index.js --require source-map-support/register && codecov",
         "check": "eslint ./src/lib/"
     },
     "author": {
