@@ -13,6 +13,14 @@ function doneFunction() {
 
 /**
  * @protected
+ * @description Saves the result to the global namespace
+ */
+function gotPackage(request) {
+    global.request = request;
+}
+
+/**
+ * @protected
  * @description Sends a request to the handler.
  */
 function loopback(request) {
@@ -61,6 +69,22 @@ export default function () {
             global.done = done;
 
             channel.handlerIncomingPacket(request);
+        });
+    });
+
+    describe('Send Package', () => {
+        it('Call cycle', (done) => {
+            var channel = new Channel(null, null, doneFunction, loopback);
+            var data = 'Laughing man';
+            global.done = done;
+            channel.send(data);
+        });
+
+        it('Formation of the package', () => {
+            var channel = new Channel(null, null, gotPackage, loopback);
+            var data = 'Laughing man';
+            channel.send(data);
+            assert.equal(global.request, data);
         });
     });
 }
