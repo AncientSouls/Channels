@@ -27,5 +27,5 @@ before_script:
     - npm run build
 
 script:
-    - istanbul cover ./node_modules/mocha/bin/mocha tests/index.js --require source-map-support/register -- --recursive
+    - istanbul cover ./node_modules/mocha/bin/mocha tests/index.js -- -R spec
     - codecov
