@@ -4,7 +4,7 @@
     "description": "",
     "main": "lib/index.js",
     "scripts": {
-        "build": "babel ./src --presets es2015 --no-comments --source-maps --out-dir ./",
+        "build": "babel ./src --presets es2015 --minified --no-comments --source-maps --out-dir ./",
         "test": "npm run build && mocha tests/index.js --require source-map-support/register",
         "check": "eslint ./src/lib/"
     },
