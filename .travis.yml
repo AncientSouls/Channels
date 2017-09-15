@@ -24,7 +24,7 @@ before_script:
     - npm run build
 
 script:
-    - istanbul cover ./node_modules/mocha/bin/mocha tests/index.js --report lcovonly -- -R spec
+    - istanbul cover ./node_modules/mocha/bin/_mocha tests/index.js --report lcovonly -- -R spec
 
 after_success:
-    - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+    - cat ./coverage/lcov.info | coveralls.js
