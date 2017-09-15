@@ -20,7 +20,7 @@ function doneFunction() {
 export default function () {
     describe('Basic functions:', () => {
         it('isString', () => {
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
             /* Correct result */
             assert.isTrue(channel._isString('string'));
             /* Incorrect result */
@@ -33,21 +33,21 @@ export default function () {
 
         it('GenerationUUID', () => {
             var regexp = RegExp('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}', 'i');
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
             assert.isString(channel._generationUUID());
             assert.match(channel._generationUUID(), regexp);
         });
 
         it('HandlerError', () => {
             var error = Math.random().toString(36).substring(7);
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
             assert.throws(() => channel._handlerError(error), error);
         });
     });
 
     describe('Connected:', () => {
         it('Change of status', () => {
-            var channel = new Channel(trueFunction, null, null);
+            var channel = new Channel(trueFunction, null, null, null);
             channel.connected();
             assert.isTrue(channel.isConnected);
             assert.isString(channel.id);
@@ -55,39 +55,39 @@ export default function () {
 
         it('Call the adapter', (done) => {
             global.done = done;
-            var channel = new Channel(doneFunction, null, null);
+            var channel = new Channel(doneFunction, null, null, null);
             channel.connected();
         });
     });
 
     describe('Disconnected:', () => {
         it('Change of status', () => {
-            var channel = new Channel(null, trueFunction, null);
+            var channel = new Channel(null, trueFunction, null, null);
             channel.disconnected();
             assert.isFalse(channel.isConnected);
         });
 
         it('Call the adapter', (done) => {
             global.done = done;
-            var channel = new Channel(null, doneFunction, null);
+            var channel = new Channel(null, doneFunction, null, null);
             channel.disconnected();
         });
     });
 
     describe('Authorization:', () => {
         it('Public key', () => {
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
             assert.isString(channel._authorization());
         });
 
         it('Class registration', () => {
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
             channel._authorization();
             assert.isObject(channel._ecdh);
         });
 
         it('Save the class', () => {
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
             channel._ecdh = true;
             assert.throws(() => channel._authorization());
         });
@@ -95,7 +95,7 @@ export default function () {
 
     describe('Registration:', () => {
         it('Without a key', () => {
-            var channel = new Channel(trueFunction, null, null);
+            var channel = new Channel(trueFunction, null, null, null);
             channel._registration(null);
 
             assert.isFalse(channel.onAuthorization);
@@ -105,7 +105,7 @@ export default function () {
         });
 
         it('With the key', () => {
-            var channel = new Channel(trueFunction, null, null);
+            var channel = new Channel(trueFunction, null, null, null);
             var key = channel._authorization();
             channel._registration(key);
 
@@ -117,12 +117,12 @@ export default function () {
 
         it('Invalid key', () => {
             var key = 'Change alone is eternal, perpetual, immortal.';
-            var channel = new Channel(trueFunction, null, null);
+            var channel = new Channel(trueFunction, null, null, null);
             assert.throws(() => channel._registration(key));
         });
 
         it('Call \'connected()\'', (done) => {
-            var channel = new Channel(trueFunction, null, null);
+            var channel = new Channel(trueFunction, null, null, null);
             channel.connected = done;
             channel._registration(null);
         });
@@ -130,7 +130,7 @@ export default function () {
 
     describe('Encryption / Decryption:', () => {
         it('Without a key', () => {
-            var channel = new Channel(trueFunction, null, null);
+            var channel = new Channel(trueFunction, null, null, null);
             var data = 'Cogita et visa';
             channel._registration(null);
 
@@ -139,7 +139,7 @@ export default function () {
         });
 
         it('With the key', () => {
-            var channel = new Channel(trueFunction, null, null);
+            var channel = new Channel(trueFunction, null, null, null);
             var key = channel._authorization();
             var data = 'De facto';
             channel._registration(key);
@@ -155,7 +155,7 @@ export default function () {
     describe('Assemble / Disassemble Package:', () => {
         it('Without type', () => {
             var data = 'I\'am looking for a human.';
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
 
             var assembledRequest = channel._assemblePackage(data, null);
             var disassembledRequest = channel._disassemblePackage(assembledRequest);
@@ -171,7 +171,7 @@ export default function () {
 
         it('With the type', () => {
             var data = 'Hey, Teacher, leave those kids alone!';
-            var channel = new Channel();
+            var channel = new Channel(null, null, null, null);
             var type = 'brick';
 
             var assembledRequest = channel._assemblePackage(data, type);
