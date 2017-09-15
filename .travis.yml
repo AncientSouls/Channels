@@ -27,5 +27,7 @@ before_script:
     - npm run build
 
 script:
-    - istanbul cover ./node_modules/mocha/bin/mocha tests/index.js -- -R spec
+    - istanbul cover ./node_modules/mocha/bin/mocha tests/index.js --report lcovonly -- -R spec
+
+after_success:
     - codecov
