@@ -1,3 +1,11 @@
+## 0.0.0-alpha.3 (15-09-2017)
+### Channel:
+* The function `_formationPackage` is renamed to `_assemblePackage`.
+* The function `_disassemblePackage` is added to unpack the request.
+* Fixed bug in creating `sharedKey` key.
+* Fixed bugs in the functions of `_encryption` and` _decryption`.
+* Added tests for basic and simple functions.
+
 ## 0.0.0-alpha.2 (14-09-2017)
 ### Channel:
 * The variable `channelid` is renamed to `id`.

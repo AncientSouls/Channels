@@ -101,7 +101,7 @@ export default class Channel {
             throw new Error('');
         }
 
-        request = JSON.parse(request);
+        request = this._disassemblePackage(request);
 
         /* Package with data */
         if (request[0] == 'data') {
@@ -136,7 +136,7 @@ export default class Channel {
         }
 
         data = this._encryption(data);
-        var request = this._formationPackage(data);
+        var request = this._assemblePackage(data);
         this.sendPackage(request);
     }
 
@@ -172,7 +172,7 @@ export default class Channel {
             key = this._authorization();
         }
 
-        var request = this._formationPackage(key, 'connect');
+        var request = this._assemblePackage(key, 'connect');
         this.sendPackage(request);
     }
 
@@ -182,7 +182,7 @@ export default class Channel {
      * Also performs the closure of the communication channel.
      */
     disconnect() {
-        var request = this._formationPackage(null, 'close');
+        var request = this._assemblePackage(null, 'close');
         this.sendPackage(request);
         this.disconnected();
     }
@@ -217,7 +217,7 @@ export default class Channel {
 
         /* The key has been transferred */
         else {
-            this.sharedKey = this._ecdh.computeSecret(incomingKey, 'base64');
+            this.sharedKey = this._ecdh.computeSecret(incomingKey, 'base64', 'base64');
             this._decipher = crypto.createDecipher('aes192', this.sharedKey);
             this._cipher = crypto.createCipher('aes192', this.sharedKey);
             this.onAuthorization = true;
@@ -234,11 +234,21 @@ export default class Channel {
      * @returns {String} The final package
      * @description Generates the final packet for transmission
      */
-    _formationPackage(data, type) {
+    _assemblePackage(data, type) {
         data = this._encryption(data);
         type = type || 'data';
         var request = [type, data];
         return JSON.stringify(request);
+    }
+
+    /**
+     * @protected
+     * @param {String} request - Received request
+     * @returns {Array} The final package
+     * @description Parses the request, it returns the final package
+     */
+    _disassemblePackage(request) {
+        return JSON.parse(request);
     }
 
     /**
@@ -248,8 +258,9 @@ export default class Channel {
      * @description Encrypts the source data
      */
     _encryption(data) {
-        if (this._cipher) {
-            return this._cipher.update(data, 'utf8', 'hex');
+        if (this._cipher && this.onAuthorization) {
+            var encrypted = this._cipher.update(data, 'utf8', 'hex');
+            return encrypted += this._cipher.final('hex');
         }
         return data;
     }
@@ -261,8 +272,9 @@ export default class Channel {
      * @description Decrypts the encrypted data
      */
     _decryption(data) {
-        if (this._decipher) {
-            return this._decipher.update(data, 'hex', 'utf8');
+        if (this._decipher && this.onAuthorization) {
+            var decrypted = this._decipher.update(data, 'hex', 'utf8');
+            return decrypted += this._decipher.final('utf8');
         }
         return data;
     }
