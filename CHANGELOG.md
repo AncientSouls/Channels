@@ -1,3 +1,9 @@
+## 0.0.0-alpha.4 (15-09-2017)
+### Channel:
+* Connected `Travis CI`.
+* All tests for this class have been added.
+* The variable `onAuthorization` is removed from the class.
+
 ## 0.0.0-alpha.3 (15-09-2017)
 ### Channel:
 * The function `_formationPackage` is renamed to `_assemblePackage`.
