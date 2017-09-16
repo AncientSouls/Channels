@@ -1,4 +1,5 @@
 # Ancient Channels
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/372ee79bd9a442fbaa6c090d2731e1ad)](https://www.codacy.com/app/valentineus/Channels?utm_source=github.com&utm_medium=referral&utm_content=AncientSouls/Channels&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/AncientSouls/Channels.svg?branch=master)](https://travis-ci.org/AncientSouls/Channels)
 [![dependencies Status](https://david-dm.org/AncientSouls/Channels/status.svg)](https://david-dm.org/AncientSouls/Channels)
 [![devDependencies Status](https://david-dm.org/AncientSouls/Channels/dev-status.svg)](https://david-dm.org/AncientSouls/Channels?type=dev)
