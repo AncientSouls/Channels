@@ -11,7 +11,7 @@ notifications:
     email:
         - info@valentineus.link
 
-after_install:
+before_install:
     - npm install --global nyc
     - npm install --global codacy-coverage
 
