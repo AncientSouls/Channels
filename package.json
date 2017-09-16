@@ -4,8 +4,8 @@
     "description": "",
     "main": "lib/index.js",
     "scripts": {
-        "build": "babel ./src/lib --out-dir ./lib --source-maps",
-        "test": "mocha src/tests/index.js --compilers js:babel-core/register",
+        "test": "mocha src/tests/index.js --compilers js:babel-core/register --require source-map-support/register",
+        "build": "babel ./src/lib --out-dir ./lib",
         "check": "eslint ./src/lib/"
     },
     "author": {
@@ -27,7 +27,8 @@
         "babel-preset-es2015": "^6.24.1",
         "chai": "^4.1.2",
         "eslint": "^4.6.1",
-        "mocha": "^3.5.0"
+        "mocha": "^3.5.0",
+        "source-map-support": "^0.4.18"
     },
     "dependencies": {
         "uuid": "^3.1.0"

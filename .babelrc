@@ -1,6 +1,6 @@
 {
     presets: ["es2015"],
-    sourceMaps: "both",
+    sourceMaps: "inline",
     comments: false,
     minified: true,
     compact: true
