@@ -25,4 +25,4 @@ script:
 
 after_success:
     - nyc report --reporter=lcov
-    - codacy-coverage
+    - cat ./coverage/lcov.info | codacy-coverage
