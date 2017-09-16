@@ -61,6 +61,12 @@ typings/
 .c9revisions
 .c9
 
+# Configuration files
+.eslintrc.json
+.travis.yml
+.gitignore
+.babelrc
+
 # Repository
 .git/
 

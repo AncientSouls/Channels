@@ -4,6 +4,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json*
 
 # Runtime data
 pids
@@ -60,9 +61,6 @@ typings/
 # Cloud9 IDE (https://c9.io/)
 .c9revisions
 .c9
-
-# Testing
-/tests
 
 # Compiled code
 /lib
