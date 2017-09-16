@@ -11,20 +11,15 @@ notifications:
     email:
         - info@valentineus.link
 
-before_install:
+install:
+    - npm install --global nyc
     - npm install --only=production
     - npm install --only=development
 
-install:
-    - npm install --global mocha-lcov-reporter
-    - npm install --global coveralls
-    - npm install --global istanbul
-
-before_script:
-    - npm run build
-
 script:
-    - istanbul cover ./node_modules/mocha/bin/_mocha tests/index.js --report lcovonly -- -R spec
+    - nyc npm run test
+    - nyc report --reporter=lcov
 
 after_success:
-    - cat ./coverage/lcov.info | coveralls.js
+    - nyc report --reporter=lcov
+    - codacy-coverage

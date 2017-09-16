@@ -1,0 +1,7 @@
+{
+    presets: ["es2015"],
+    sourceMaps: "both",
+    comments: false,
+    minified: true,
+    compact: true
+}
