@@ -52,7 +52,7 @@ export default function () {
             var channel = manager.new(channelLoopback);
             /* Checking */
             channel.send(text);
-            assert.isTrue(callback.calledWith(channel, text));
+            assert.isTrue(callback.alwaysCalledWith(channel, text));
         });
     });
 }
