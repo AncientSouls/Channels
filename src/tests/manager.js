@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import { Manager } from '../lib/index';
 import { simpleManager } from './simpleFunctions';
 
+import newTest from './manager/new';
 import channelConnected from './manager/channelConnected';
 import channelDisconnected from './manager/channelDisconnected';
 
@@ -47,6 +48,7 @@ export default function () {
 
             channelConnected();
             channelDisconnected();
+            newTest();
         });
     });
 }
