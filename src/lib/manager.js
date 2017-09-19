@@ -39,6 +39,7 @@ export default class Manager {
     /**
      * @protected
      * @param {Function} sendPackage - Function of sending data on transport
+     * @return {Object} Assembled channel class
      * @description Create a new channel
      */
     new(sendPackage) {}
@@ -49,7 +50,7 @@ export default class Manager {
      * @description Function for the adapter.
      * Used by the channel when establishing a connection.
      */
-    channelConnected(channel) {}
+    _channelConnected(channel) {}
 
     /**
      * @protected
@@ -57,14 +58,15 @@ export default class Manager {
      * @description Function for the adapter.
      * Used by the channel when the connection is broken.
      */
-    channelDisconnected(channel) {}
+    _channelDisconnected(channel) {}
 
     /**
      * @protected
-     * @param {String} data - Information received
-     * @param {Object} channel - Channel class
-     * @description Function for the adapter.
-     * Used by the channel when receiving information.
+     * @param {String} value - The variable to check
+     * @returns {Boolean} Result of checking
+     * @description Checks the type of the variable
      */
-    channelGotPackage(data, channel) {}
+    _isString(value) {
+        return typeof value === 'string';
+    }
 }
