@@ -8,6 +8,13 @@ function trueFunction() {
 }
 
 /**
+ * @description Create a transport loop for the channel
+ */
+function channelLoopback(data) {
+    this.handlerIncomingPacket(data);
+}
+
+/**
  * @description Create the layout of the connected channel
  */
 function simpleChannel() {
@@ -24,6 +31,7 @@ function simpleManager() {
 }
 
 export {
+    channelLoopback,
     trueFunction,
     simpleManager,
     simpleChannel
