@@ -1,10 +1,18 @@
 import { Manager, Channel } from '../lib/index';
+import crypto from 'crypto';
 
 /**
  * @description Magic function generating a random true.
  */
 function trueFunction() {
     return true;
+}
+
+/**
+ * @description Generating a random string
+ */
+function generatorString() {
+    return crypto.randomBytes(20).toString('hex');
 }
 
 /**
@@ -32,6 +40,7 @@ function simpleManager() {
 
 export {
     channelLoopback,
+    generatorString,
     trueFunction,
     simpleManager,
     simpleChannel
