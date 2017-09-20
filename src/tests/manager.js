@@ -12,24 +12,24 @@ export default function () {
     describe('Class Manager:', () => {
         describe('Adapter registration:', () => {
             it('onConnected()', () => {
-                var spy = sinon.spy();
-                var manager = new Manager(spy, null, null);
+                var callback = sinon.spy();
+                var manager = new Manager(callback, null, null);
                 manager.onConnected();
-                assert.isTrue(spy.called);
+                assert.isTrue(callback.called);
             });
 
             it('onDisconnected()', () => {
-                var spy = sinon.spy();
-                var manager = new Manager(null, spy, null);
+                var callback = sinon.spy();
+                var manager = new Manager(null, callback, null);
                 manager.onDisconnected();
-                assert.isTrue(spy.called);
+                assert.isTrue(callback.called);
             });
 
             it('gotPackage()', () => {
-                var spy = sinon.spy();
-                var manager = new Manager(null, null, spy);
+                var callback = sinon.spy();
+                var manager = new Manager(null, null, callback);
                 manager.gotPackage();
-                assert.isTrue(spy.called);
+                assert.isTrue(callback.called);
             });
         });
 

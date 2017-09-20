@@ -80,19 +80,19 @@ export default function () {
 
         describe('onConnected():', () => {
             it('Function call', () => {
-                var spy = sinon.spy();
+                var callback = sinon.spy();
                 var channel = simpleChannel();
-                var manager = new Manager(spy, null, null);
+                var manager = new Manager(callback, null, null);
                 manager._channelConnected(channel);
-                assert.isTrue(spy.called);
+                assert.isTrue(callback.called);
             });
 
             it('Parameter transfer', () => {
-                var spy = sinon.spy();
+                var callback = sinon.spy();
                 var channel = simpleChannel();
-                var manager = new Manager(spy, null, null);
+                var manager = new Manager(callback, null, null);
                 manager._channelConnected(channel);
-                assert.isTrue(spy.calledWith(channel));
+                assert.isTrue(callback.calledWith(channel));
             });
         });
     });
