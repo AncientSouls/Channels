@@ -16,6 +16,14 @@ function generatorString() {
 }
 
 /**
+ * @description Generates a random number up to 65536
+ */
+function generatorInteger() {
+    var rand = 1 + Math.random() * (65536 + 1 - 1);
+    return Math.floor(rand);
+}
+
+/**
  * @description Create a transport loop for the channel
  */
 function channelLoopback(data) {
@@ -41,6 +49,7 @@ function simpleManager() {
 export {
     channelLoopback,
     generatorString,
+    generatorInteger,
     trueFunction,
     simpleManager,
     simpleChannel
