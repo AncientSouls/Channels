@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import sinon from 'sinon';
 
 import { Manager } from '../lib/index';
-import { simpleManager } from './simpleFunctions';
+import { simpleChannel, simpleManager } from './simpleFunctions';
 
 import newTest from './manager/new';
 import channelConnected from './manager/channelConnected';
@@ -13,40 +13,29 @@ export default function () {
         describe('Adapter registration:', () => {
             it('onConnected()', () => {
                 var callback = sinon.spy();
+                var channel = simpleChannel();
                 var manager = new Manager(callback, null, null);
-                manager.onConnected();
+                manager.onConnected(channel);
                 assert.isTrue(callback.called);
             });
 
             it('onDisconnected()', () => {
                 var callback = sinon.spy();
+                var channel = simpleChannel();
                 var manager = new Manager(null, callback, null);
-                manager.onDisconnected();
+                manager.onDisconnected(channel);
                 assert.isTrue(callback.called);
             });
 
             it('gotPackage()', () => {
                 var callback = sinon.spy();
                 var manager = new Manager(null, null, callback);
-                manager.gotPackage();
+                manager.gotPackage(null, null);
                 assert.isTrue(callback.called);
             });
         });
 
         describe('Function check:', () => {
-            it('_isString()', () => {
-                var manager = simpleManager();
-                assert.isFalse(manager._isString(false));
-                assert.isFalse(manager._isString(true));
-                assert.isFalse(manager._isString(null));
-                assert.isFalse(manager._isString(undefined));
-                assert.isFalse(manager._isString(1234567890));
-                assert.isTrue(manager._isString('Being alive right now is all that counts'));
-                assert.isFalse(manager._isString({}));
-                assert.isFalse(manager._isString(() => {}));
-            });
-
-            /* Functions assigned */
             channelConnected();
             channelDisconnected();
             newTest();

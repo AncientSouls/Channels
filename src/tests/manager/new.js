@@ -14,7 +14,7 @@ export default function () {
         it('Returned class', () => {
             var name = 'Channel';
             var manager = simpleManager();
-            var channel = manager(trueFunction);
+            var channel = manager.new(trueFunction);
             assert.equal(channel.constructor.name, name);
         });
 
@@ -22,7 +22,7 @@ export default function () {
             var callback = sinon.spy();
             var manager = new Manager(callback, null, null);
             var channel = manager.new(null);
-            channel.onConnected();
+            channel.onConnected(channel);
             assert.isTrue(callback.calledWith(channel));
         });
 
@@ -30,7 +30,7 @@ export default function () {
             var callback = sinon.spy();
             var manager = new Manager(null, callback, null);
             var channel = manager.new(null);
-            channel.onDisconnected();
+            channel.onDisconnected(channel);
             assert.isTrue(callback.calledWith(channel));
         });
 
@@ -40,7 +40,7 @@ export default function () {
             var manager = simpleManager();
             var channel = manager.new(callback);
             channel.send(text);
-            assert.isTrue(callback.calledWith(text));
+            assert.isTrue(callback.called);
         });
 
         it('gotPackage()', () => {
