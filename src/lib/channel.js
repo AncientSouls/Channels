@@ -99,7 +99,7 @@ export default class Channel {
         /* Package with data */
         if (request[0] == 'data') {
             request[1] = this._decryption(request[1]);
-            this.gotPackage(request[1]);
+            this.gotPackage(request[1], this);
         }
 
         /* Package end of communication */
@@ -140,7 +140,7 @@ export default class Channel {
     connected() {
         this.isConnected = true;
         this.id = this._generationUUID();
-        this.onConnected(this.id);
+        this.onConnected(this);
     }
 
     /**
@@ -149,7 +149,7 @@ export default class Channel {
      */
     disconnected() {
         this.isConnected = false;
-        this.onDisconnected(this.id);
+        this.onDisconnected(this);
     }
 
     /**
@@ -227,7 +227,7 @@ export default class Channel {
      */
     _assemblePackage(data, type) {
         data = this._encryption(data);
-        type = type || 'data';
+        type = this._isString(type) ? type : 'data';
         var request = [type, data];
         return JSON.stringify(request);
     }
