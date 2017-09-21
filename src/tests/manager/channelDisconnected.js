@@ -63,10 +63,8 @@ export default function () {
             it('Removal', () => {
                 var channel = simpleChannel();
                 var manager = simpleManager();
-                /* Storage */
                 manager._channelConnected(channel);
                 var storage = manager.channels;
-                /* Checking */
                 manager._channelDisconnected(channel);
                 assert.notEqual(storage, manager.channels);
                 assert.lengthOf(manager.channels, 0);
@@ -75,10 +73,8 @@ export default function () {
             it('No duplicate', () => {
                 var channel = simpleChannel();
                 var manager = simpleManager();
-                /* Storage */
                 var storage = { text: generatorString() };
                 manager.channels = storage;
-                /* Checking */
                 manager._channelDisconnected(channel);
                 assert.equal(storage, manager.channels);
                 assert.lengthOf(manager.channels, 1);

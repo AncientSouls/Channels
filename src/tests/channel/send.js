@@ -69,7 +69,7 @@ export default function () {
             var callback = sinon.spy();
             var channel = new Channel(null, null, callback, channelLoopback);
             channel.send(text);
-            assert.isTrue(callback.calledWith(text));
+            assert.isTrue(callback.alwaysCalledWith(text, channel));
         });
     });
 

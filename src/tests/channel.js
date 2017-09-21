@@ -52,7 +52,7 @@ export default function () {
 
                 it('onConnected()', () => {
                     var callback = sinon.spy();
-                    var channel = new Channel(callback, null, null);
+                    var channel = new Channel(callback, null, null, null);
                     channel.connected();
                     assert.isTrue(callback.calledWith(channel));
                 });
@@ -61,14 +61,14 @@ export default function () {
             describe('disconnected():', () => {
                 it('Change of status', () => {
                     var channel = simpleChannel();
-                    channel.disconnect();
+                    channel.disconnected();
                     assert.isFalse(channel.isConnected);
                 });
 
                 it('onDisconnected()', () => {
                     var callback = sinon.spy();
-                    var channel = new Channel(null, callback, null);
-                    channel.disconnect();
+                    var channel = new Channel(null, callback, null, null);
+                    channel.disconnected();
                     assert.isTrue(callback.calledWith(channel));
                 });
             });

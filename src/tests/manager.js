@@ -46,6 +46,7 @@ export default function () {
                 assert.isFalse(manager._isString(() => {}));
             });
 
+            /* Functions assigned */
             channelConnected();
             channelDisconnected();
             newTest();

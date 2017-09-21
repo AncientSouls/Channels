@@ -22,7 +22,6 @@ export default function () {
             var callback = sinon.spy();
             var manager = new Manager(callback, null, null);
             var channel = manager.new(null);
-            /* Checking */
             channel.onConnected();
             assert.isTrue(callback.calledWith(channel));
         });
@@ -31,7 +30,6 @@ export default function () {
             var callback = sinon.spy();
             var manager = new Manager(null, callback, null);
             var channel = manager.new(null);
-            /* Checking */
             channel.onDisconnected();
             assert.isTrue(callback.calledWith(channel));
         });
@@ -41,7 +39,6 @@ export default function () {
             var callback = sinon.spy();
             var manager = simpleManager();
             var channel = manager.new(callback);
-            /* Checking */
             channel.send(text);
             assert.isTrue(callback.calledWith(text));
         });
@@ -51,9 +48,8 @@ export default function () {
             var callback = sinon.spy();
             var manager = new Manager(null, null, callback);
             var channel = manager.new(channelLoopback);
-            /* Checking */
             channel.send(text);
-            assert.isTrue(callback.alwaysCalledWith(channel, text));
+            assert.isTrue(callback.alwaysCalledWith(text, channel));
         });
     });
 }
