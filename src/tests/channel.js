@@ -1,8 +1,14 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
-import { Channel } from '../lib/index';
 import { simpleChannel } from './simpleFunctions';
+import { Channel } from '../lib/index';
+
+import sendTest from './channel/send';
+import encryption from './channel/encryption';
+import registration from './channel/registration';
+import assemblePackage from './channel/assemblePackage';
+import handlerIncomingPacket from './channel/handlerIncomingPacket';
 
 export default function () {
     describe('Class Channel:', () => {
@@ -67,6 +73,13 @@ export default function () {
                 });
             });
 
+            /* Functions assigned */
+            registration();
+            encryption();
+            assemblePackage();
+            handlerIncomingPacket();
+            sendTest();
+
             it('_isString()', () => {
                 var channel = simpleChannel();
                 assert.isFalse(channel._isString(false));
@@ -91,9 +104,6 @@ export default function () {
                 var channel = simpleChannel();
                 assert.throws(() => channel._handlerError(error), error);
             });
-
-            // basicFunctions();
-            // complexFunctions();
         });
     });
 }

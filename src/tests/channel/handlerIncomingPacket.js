@@ -11,41 +11,36 @@ import {
 export default function () {
     describe('handlerIncomingPacket():', () => {
         describe('Exceptions:', () => {
+            var channel = simpleChannel();
+
             it('Boolean', () => {
-                var channel = simpleChannel();
                 assert.throw(() => channel.handlerIncomingPacket(false));
                 assert.throw(() => channel.handlerIncomingPacket(true));
             });
 
             it('Null', () => {
-                var channel = simpleChannel();
                 assert.throw(() => channel.handlerIncomingPacket(null));
             });
 
             it('Undefined', () => {
-                var channel = simpleChannel();
                 assert.throw(() => channel.handlerIncomingPacket(undefined));
             });
 
             it('Number', () => {
                 var number = generatorInteger();
-                var channel = simpleChannel();
                 assert.throw(() => channel.handlerIncomingPacket(number));
             });
 
             it('String', () => {
                 var text = generatorString();
-                var channel = simpleChannel();
                 assert.throw(() => channel.handlerIncomingPacket(text));
             });
 
             it('Object', () => {
-                var channel = simpleChannel();
                 assert.throw(() => channel.handlerIncomingPacket({}));
             });
 
             it('Function', () => {
-                var channel = simpleChannel();
                 assert.throw(() => channel.handlerIncomingPacket(() => {}));
             });
         });
