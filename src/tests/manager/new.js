@@ -5,7 +5,8 @@ import { Manager } from '../../lib/index';
 import {
     channelLoopback,
     simpleManager,
-    trueFunction
+    trueFunction,
+    generatorString
 } from '../simpleFunctions';
 
 export default function () {
@@ -36,7 +37,7 @@ export default function () {
         });
 
         it('sendPackage()', () => {
-            var text = 'Together, or not at all';
+            var text = generatorString();
             var callback = sinon.spy();
             var manager = simpleManager();
             var channel = manager.new(callback);
@@ -46,7 +47,7 @@ export default function () {
         });
 
         it('gotPackage()', () => {
-            var text = 'Have a fantastic life';
+            var text = generatorString();
             var callback = sinon.spy();
             var manager = new Manager(null, null, callback);
             var channel = manager.new(channelLoopback);

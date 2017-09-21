@@ -1,8 +1,13 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
-import { simpleManager, simpleChannel } from '../simpleFunctions';
 import { Manager } from '../../lib/index';
+import {
+    simpleManager,
+    simpleChannel,
+    generatorString,
+    generatorInteger
+} from '../simpleFunctions';
 
 export default function () {
     describe('_channelConnected():', () => {
@@ -31,12 +36,13 @@ export default function () {
                 });
 
                 it('Number', () => {
+                    var number = generatorInteger();
                     var manager = simpleManager();
-                    assert.throws(() => manager._channelConnected(1234567890));
+                    assert.throws(() => manager._channelConnected(number));
                 });
 
                 it('String', () => {
-                    var text = 'Trust Your Doctor';
+                    var text = generatorString();
                     var manager = simpleManager();
                     assert.throws(() => manager._channelConnected(text));
                 });

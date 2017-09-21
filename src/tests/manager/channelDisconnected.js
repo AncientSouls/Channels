@@ -1,8 +1,13 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
-import { simpleManager, simpleChannel } from '../simpleFunctions';
 import { Manager } from '../../lib/index';
+import {
+    simpleManager,
+    simpleChannel,
+    generatorString,
+    generatorInteger
+} from '../simpleFunctions';
 
 export default function () {
     describe('_channelDisconnected():', () => {
@@ -31,13 +36,14 @@ export default function () {
                 });
 
                 it('Number', () => {
+                    var number = generatorInteger();
                     var manager = simpleManager();
-                    assert.throws(() => manager._channelDisconnected(1234567890));
+                    assert.throws(() => manager._channelDisconnected(number));
                 });
 
                 it('String', () => {
+                    var text = generatorString();
                     var manager = simpleManager();
-                    var text = 'Silence Will Fall';
                     assert.throws(() => manager._channelDisconnected(text));
                 });
 
@@ -70,7 +76,7 @@ export default function () {
                 var channel = simpleChannel();
                 var manager = simpleManager();
                 /* Storage */
-                var storage = { text: 'We\'re in a library!' };
+                var storage = { text: generatorString() };
                 manager.channels = storage;
                 /* Checking */
                 manager._channelDisconnected(channel);
