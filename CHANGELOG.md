@@ -1,3 +1,16 @@
+## 0.0.0-beta.1 (21-09-2017)
+### Channel:
+* Full revision of tests.
+* Many small fixes for the infrastructure.
+
+### Manager:
+* The first final version of the manager.
+* Full coverage tests.
+
+### Globally:
+* Exceptions for repositories have been reworked.
+* Added code minimization.
+
 ## 0.0.0-alpha.4 (15-09-2017)
 ### Channel:
 * Connected `Travis CI`.

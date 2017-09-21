@@ -1,4 +1,5 @@
 # Ancient Channels
+[![npm](https://img.shields.io/npm/v/ancient-channels.svg)](https://www.npmjs.com/package/ancient-channels)
 [![Build Status](https://travis-ci.org/AncientSouls/Channels.svg?branch=master)](https://travis-ci.org/AncientSouls/Channels)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/372ee79bd9a442fbaa6c090d2731e1ad)](https://www.codacy.com/app/valentineus/Channels)
 [![Codacy Coverage Badge](https://api.codacy.com/project/badge/Coverage/372ee79bd9a442fbaa6c090d2731e1ad)](https://www.codacy.com/app/valentineus/Channels/files)

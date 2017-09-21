@@ -1,3 +1,5 @@
+import { Channel } from './index';
+
 /**
  * @class Manager
  * @memberof module:ancient-channels
@@ -11,16 +13,26 @@ export default class Manager {
      */
     constructor(onConnected, onDisconnected, gotPackage) {
         /**
-         * @type {Function}
-         * @description Callback when a channel is connected
+         * @protected
+         * @param {Object} channel - Connected channel
+         * @description Function for the adapter.
+         * Used by the channel when establishing a connection.
          */
-        this.onConnected = onConnected;
+        this.onConnected = (channel) => {
+            this.channels[channel.id] = channel;
+            onConnected(channel);
+        };
 
         /**
-         * @type {Function}
-         * @description Callback when the channel is disconnected
+         * @protected
+         * @param {Object} channel - Broken channel
+         * @description Function for the adapter.
+         * Used by the channel when the connection is broken.
          */
-        this.onDisconnected = onDisconnected;
+        this.onDisconnected = (channel) => {
+            delete this.channels[channel.id];
+            onDisconnected(channel);
+        };
 
         /**
          * @type {Function}
@@ -42,31 +54,7 @@ export default class Manager {
      * @return {Object} Assembled channel class
      * @description Create a new channel
      */
-    new(sendPackage) {}
-
-    /**
-     * @protected
-     * @param {Object} channel - Connected channel
-     * @description Function for the adapter.
-     * Used by the channel when establishing a connection.
-     */
-    _channelConnected(channel) {}
-
-    /**
-     * @protected
-     * @param {Object} channel - Broken channel
-     * @description Function for the adapter.
-     * Used by the channel when the connection is broken.
-     */
-    _channelDisconnected(channel) {}
-
-    /**
-     * @protected
-     * @param {String} value - The variable to check
-     * @returns {Boolean} Result of checking
-     * @description Checks the type of the variable
-     */
-    _isString(value) {
-        return typeof value === 'string';
+    new(sendPackage) {
+        return new Channel(this.onConnected, this.onDisconnected, this.gotPackage, sendPackage);
     }
 }
