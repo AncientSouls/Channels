@@ -1,3 +1,7 @@
+## 0.0.0-beta.3 (22-09-2017)
+### Channel:
+* Fixed duplication of functionality, leading to encryption of all internal packages without the possibility of decryption.
+
 ## 0.0.0-beta.2 (22-09-2017)
 ### Channel:
 * Fixed logic error, resulting in the inability to login channels.
