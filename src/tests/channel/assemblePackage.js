@@ -120,23 +120,5 @@ export default function () {
                 assert.isNull(request[1]);
             });
         });
-
-        it('Encrypt the package', () => {
-            var text = generatorString();
-            var channel = simpleChannel();
-            channel._registration(channel.publicKey);
-            var request = channel._assemblePackage(text, null);
-            var result = channel._disassemblePackage(request);
-            assert.notEqual(result[1], text);
-        });
-
-        it('No internal packet encryption', () => {
-            var text = generatorString();
-            var channel = simpleChannel();
-            channel._registration(channel.publicKey);
-            var request = channel._assemblePackage(text, 'connect');
-            var result = channel._disassemblePackage(request);
-            assert.equal(result[1], text);
-        });
     });
 }

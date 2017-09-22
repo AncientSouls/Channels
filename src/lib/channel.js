@@ -220,7 +220,6 @@ export default class Channel {
      */
     _assemblePackage(data, type) {
         type = this._isString(type) ? type : 'data';
-        data = type == 'data' ? this._encryption(data) : data;
         var request = [type, data];
         return JSON.stringify(request);
     }
