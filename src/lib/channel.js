@@ -219,8 +219,8 @@ export default class Channel {
      * @description Generates the final packet for transmission
      */
     _assemblePackage(data, type) {
-        data = this._encryption(data);
         type = this._isString(type) ? type : 'data';
+        data = type == 'data' ? this._encryption(data) : data;
         var request = [type, data];
         return JSON.stringify(request);
     }
