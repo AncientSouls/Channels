@@ -1,3 +1,9 @@
+## 0.0.0-beta.2 (22-09-2017)
+### Channel:
+* Fixed logic error, resulting in the inability to login channels.
+* Fixed and rewritten tests due to an error.
+* Removed function `authorization`.
+
 ## 0.0.0-beta.1 (21-09-2017)
 ### Channel:
 * Full revision of tests.

@@ -40,6 +40,30 @@ export default class Channel {
 
         /**
          * @protected
+         * @type {Object}
+         * @description Utility for creating Elliptic Curve Diffie-Hellman (ECDH) key exchanges.
+         * https://nodejs.org/api/crypto.html#crypto_class_diffiehellman
+         */
+        this._ecdh = crypto.createECDH('secp256k1');
+
+        /**
+         * @protected
+         * @type {Object}
+         * @description Instances of the Cipher class are used to encrypt data.
+         * https://nodejs.org/api/crypto.html#crypto_class_cipher
+         */
+        this._cipher = null;
+
+        /**
+         * @protected
+         * @type {Object}
+         * @description Instances of the Decipher class are used to decrypt data.
+         * https://nodejs.org/api/crypto.html#crypto_class_decipher
+         */
+        this._decipher = null;
+
+        /**
+         * @protected
          * @type {Boolean}
          * @description Connection status
          */
@@ -61,27 +85,10 @@ export default class Channel {
 
         /**
          * @protected
-         * @type {Object}
-         * @description Utility for creating Elliptic Curve Diffie-Hellman (ECDH) key exchanges.
-         * https://nodejs.org/api/crypto.html#crypto_class_diffiehellman
+         * @type {String}
+         * @description Public key
          */
-        this._ecdh = null;
-
-        /**
-         * @protected
-         * @type {Object}
-         * @description Instances of the Cipher class are used to encrypt data.
-         * https://nodejs.org/api/crypto.html#crypto_class_cipher
-         */
-        this._cipher = null;
-
-        /**
-         * @protected
-         * @type {Object}
-         * @description Instances of the Decipher class are used to decrypt data.
-         * https://nodejs.org/api/crypto.html#crypto_class_decipher
-         */
-        this._decipher = null;
+        this.publicKey = this._ecdh.generateKeys('base64', 'compressed');
     }
 
     /**
@@ -162,7 +169,7 @@ export default class Channel {
 
         var key = null;
         if (authorization) {
-            key = this._authorization();
+            key = this.publicKey;
         }
 
         var request = this._assemblePackage(key, 'connect');
@@ -178,20 +185,6 @@ export default class Channel {
         var request = this._assemblePackage(null, 'close');
         this.sendPackage(request);
         this.disconnected();
-    }
-
-    /**
-     * @protected
-     * @returns {String} Public key
-     * @description Run the authorization process.
-     * Generates keys and returns the public key.
-     */
-    _authorization() {
-        if (!this._ecdh) {
-            this._ecdh = crypto.createECDH('secp256k1');
-        }
-
-        return this._ecdh.generateKeys('base64', 'compressed');
     }
 
     /**
