@@ -13,8 +13,7 @@ export default function () {
 
             beforeEach(() => {
                 channel = simpleChannel();
-                var key = channel._authorization();
-                channel._registration(key);
+                channel._registration(channel.publicKey);
             });
 
             it('Boolean', () => {
@@ -49,33 +48,16 @@ export default function () {
             });
         });
 
-        it('No registration', () => {
-            var text = generatorString();
-            var channel = simpleChannel();
-            assert.equal(channel._encryption(text), text);
-        });
-
-        it('No class', () => {
-            var text = generatorString();
-            var channel = simpleChannel();
-            channel.sharedKey = generatorString();
-            assert.equal(channel._encryption(text), text);
-        });
-
         it('Missing key', () => {
             var text = generatorString();
             var channel = simpleChannel();
-            var key = channel._authorization();
-            channel._registration(key);
-            channel.sharedKey = null;
             assert.equal(channel._encryption(text), text);
         });
 
         it('Encryption', () => {
             var text = generatorString();
             var channel = simpleChannel();
-            var key = channel._authorization();
-            channel._registration(key);
+            channel._registration(channel.publicKey);
             assert.notEqual(channel._encryption(text), text);
         });
     });
@@ -86,8 +68,7 @@ export default function () {
 
             beforeEach(() => {
                 channel = simpleChannel();
-                var key = channel._authorization();
-                channel._registration(key);
+                channel._registration(channel.publicKey);
             });
 
             it('Boolean', () => {
@@ -122,33 +103,16 @@ export default function () {
             });
         });
 
-        it('No registration', () => {
-            var text = generatorString();
-            var channel = simpleChannel();
-            assert.equal(channel._decryption(text), text);
-        });
-
-        it('No class', () => {
-            var text = generatorString();
-            var channel = simpleChannel();
-            channel.sharedKey = generatorString();
-            assert.equal(channel._decryption(text), text);
-        });
-
         it('Missing key', () => {
             var text = generatorString();
             var channel = simpleChannel();
-            var key = channel._authorization();
-            channel._registration(key);
-            channel.sharedKey = null;
             assert.equal(channel._decryption(text), text);
         });
 
         it('Decryption', () => {
             var text = generatorString();
             var channel = simpleChannel();
-            var key = channel._authorization();
-            channel._registration(key);
+            channel._registration(channel.publicKey);
             /* Encryption */
             var encrypted = channel._encryption(text);
             var decrypted = channel._decryption(encrypted);

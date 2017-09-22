@@ -49,9 +49,9 @@ export default function () {
         it('On Encryption', () => {
             var text = generatorString();
             var channel = simpleChannel();
-            var key = channel._authorization();
             channel._assemblePackage = sinon.spy();
-            channel._registration(key);
+            channel._registration(channel.publicKey);
+            /* Checking */
             channel.send(text);
             assert.isTrue(channel._assemblePackage.neverCalledWith(text));
         });
@@ -60,6 +60,7 @@ export default function () {
             var text = generatorString();
             var channel = simpleChannel();
             channel._assemblePackage = sinon.spy();
+            /* Checking */
             channel.send(text);
             assert.isTrue(channel._assemblePackage.calledWith(text));
         });
@@ -68,6 +69,7 @@ export default function () {
             var text = generatorString();
             var callback = sinon.spy();
             var channel = new Channel(null, null, callback, channelLoopback);
+            /* Checking */
             channel.send(text);
             assert.isTrue(callback.alwaysCalledWith(text, channel));
         });
@@ -94,47 +96,57 @@ export default function () {
             var channel = null;
 
             beforeEach(() => {
-                channel = simpleChannel();
-                channel._authorization = sinon.spy();
+                channel = new Channel(null, null, null, channelLoopback);
+                channel._registration = sinon.spy();
             });
 
             it('Boolean', () => {
+                /* False */
                 channel.connect(false);
-                assert.isFalse(channel._authorization.called);
+                var args = channel._registration.args.pop();
+                assert.isNull(args[0]);
+                /* True */
                 channel.connect(true);
-                assert.isTrue(channel._authorization.called);
+                args = channel._registration.args.pop();
+                assert.isString(args[0]);
             });
 
             it('Null', () => {
                 channel.connect(null);
-                assert.isFalse(channel._authorization.called);
+                var args = channel._registration.args.pop();
+                assert.isNull(args[0]);
             });
 
             it('Undefined', () => {
                 channel.connect(undefined);
-                assert.isFalse(channel._authorization.called);
+                var args = channel._registration.args.pop();
+                assert.isNull(args[0]);
             });
 
             it('Number', () => {
                 var number = generatorInteger();
                 channel.connect(number);
-                assert.isTrue(channel._authorization.called);
+                var args = channel._registration.args.pop();
+                assert.isString(args[0]);
             });
 
             it('String', () => {
                 var text = generatorString();
                 channel.connect(text);
-                assert.isTrue(channel._authorization.called);
+                var args = channel._registration.args.pop();
+                assert.isString(args[0]);
             });
 
             it('Object', () => {
                 channel.connect({});
-                assert.isTrue(channel._authorization.called);
+                var args = channel._registration.args.pop();
+                assert.isString(args[0]);
             });
 
             it('Function', () => {
                 channel.connect(() => {});
-                assert.isTrue(channel._authorization.called);
+                var args = channel._registration.args.pop();
+                assert.isString(args[0]);
             });
         });
 

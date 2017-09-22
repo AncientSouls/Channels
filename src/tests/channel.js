@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
-import { simpleChannel } from './simpleFunctions';
+import { simpleChannel, generatorString } from './simpleFunctions';
 import { Channel } from '../lib/index';
 
 import sendTest from './channel/send';
@@ -87,7 +87,7 @@ export default function () {
                 assert.isFalse(channel._isString(null));
                 assert.isFalse(channel._isString(undefined));
                 assert.isFalse(channel._isString(1234567890));
-                assert.isTrue(channel._isString(''));
+                assert.isTrue(channel._isString(generatorString()));
                 assert.isFalse(channel._isString({}));
                 assert.isFalse(channel._isString(() => {}));
             });
