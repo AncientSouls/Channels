@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
-import { simpleChannel, generatorString } from './simpleFunctions';
+import { simpleChannel, generatorString, generatorInteger } from './simpleFunctions';
 import { Channel } from '../lib/index';
 
 import sendTest from './channel/send';
@@ -86,10 +86,22 @@ export default function () {
                 assert.isFalse(channel._isString(true));
                 assert.isFalse(channel._isString(null));
                 assert.isFalse(channel._isString(undefined));
-                assert.isFalse(channel._isString(1234567890));
+                assert.isFalse(channel._isString(generatorInteger()));
                 assert.isTrue(channel._isString(generatorString()));
                 assert.isFalse(channel._isString({}));
                 assert.isFalse(channel._isString(() => {}));
+            });
+
+            it('_isFunction()', () => {
+                var channel = simpleChannel();
+                assert.isFalse(channel._isFunction(false));
+                assert.isFalse(channel._isFunction(true));
+                assert.isFalse(channel._isFunction(null));
+                assert.isFalse(channel._isFunction(undefined));
+                assert.isFalse(channel._isFunction(generatorInteger()));
+                assert.isFalse(channel._isFunction(generatorString()));
+                assert.isFalse(channel._isFunction({}));
+                assert.isTrue(channel._isFunction(() => {}));
             });
 
             it('_generationUUID()', () => {
@@ -100,7 +112,7 @@ export default function () {
             });
 
             it('_handlerError()', () => {
-                var error = Math.random().toString(36).substring(7);
+                var error = generatorString();
                 var channel = simpleChannel();
                 assert.throws(() => channel._handlerError(error), error);
             });

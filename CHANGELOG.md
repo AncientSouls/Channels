@@ -1,3 +1,8 @@
+## 0.0.0-beta.4 (23-09-2017)
+### Channel:
+* Added check before running `onConnected` and `onDisconnected`.
+* `_isFunction` feature added.
+
 ## 0.0.0-beta.3 (22-09-2017)
 ### Channel:
 * Fixed duplication of functionality, leading to encryption of all internal packages without the possibility of decryption.

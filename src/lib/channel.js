@@ -147,7 +147,9 @@ export default class Channel {
     connected() {
         this.isConnected = true;
         this.id = this._generationUUID();
-        this.onConnected(this);
+        if (this._isFunction(this.onConnected)) {
+            this.onConnected(this);
+        }
     }
 
     /**
@@ -156,7 +158,9 @@ export default class Channel {
      */
     disconnected() {
         this.isConnected = false;
-        this.onDisconnected(this);
+        if (this._isFunction(this.onDisconnected)) {
+            this.onDisconnected(this);
+        }
     }
 
     /**
@@ -287,5 +291,15 @@ export default class Channel {
      */
     _isString(value) {
         return typeof value === 'string';
+    }
+
+    /**
+     * @protected
+     * @param {String} value - The variable to check
+     * @returns {Boolean} Result of checking
+     * @description Checks the type of the variable
+     */
+    _isFunction(value) {
+        return typeof value === 'function';
     }
 }
