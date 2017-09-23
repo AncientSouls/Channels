@@ -11,14 +11,6 @@ os:
     - linux
     - osx
 
-before_deploy:
-    - npm run build
-
-deploy:
-    provider: npm
-    email: "info@valentineus.link"
-    api_key: $NPM_PROJECT_TOKEN
-
 notifications:
     email:
         - "info@valentineus.link"
@@ -39,3 +31,16 @@ script:
 after_success:
     - nyc report --reporter=lcov
     - cat ./coverage/lcov.info | codacy-coverage
+
+jobs:
+    include:
+        - stage: deploy
+          node_js: "8"
+          os: "linux"
+          before_deploy:
+              - npm run build
+          deploy:
+              provider: npm
+              skip_cleanup: true
+              email: "info@valentineus.link"
+              api_key: $NPM_PROJECT_TOKEN
