@@ -17,8 +17,7 @@ before_deploy:
 deploy:
     provider: npm
     email: "info@valentineus.link"
-    api_key:
-        secure: $NPM_PROJECT_TOKEN
+    api_key: $NPM_PROJECT_TOKEN
 
 notifications:
     email:
