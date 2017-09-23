@@ -11,9 +11,18 @@ os:
     - linux
     - osx
 
+before_deploy:
+    - npm run build
+
+deploy:
+    provider: npm
+    email: "info@valentineus.link"
+    api_key:
+        secure: $NPM_PROJECT_TOKEN
+
 notifications:
     email:
-        - info@valentineus.link
+        - "info@valentineus.link"
 
 before_install:
     - npm install --global nyc
