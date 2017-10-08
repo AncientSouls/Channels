@@ -51,7 +51,7 @@ export default function () {
             var channel = new Channel(null, null, callback, null);
             var request = channel._assemblePackage(text, null);
             channel.handlerIncomingPacket(request);
-            assert.isTrue(callback.alwaysCalledWith(text, channel));
+            assert.isTrue(callback.alwaysCalledWith(channel, text));
         });
 
         it('_registration()', () => {

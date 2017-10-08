@@ -49,7 +49,7 @@ export default function () {
             var manager = new Manager(null, null, callback);
             var channel = manager.new(channelLoopback);
             channel.send(text);
-            assert.isTrue(callback.alwaysCalledWith(text, channel));
+            assert.isTrue(callback.alwaysCalledWith(channel, text));
         });
     });
 }

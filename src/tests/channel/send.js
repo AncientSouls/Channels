@@ -71,7 +71,7 @@ export default function () {
             var channel = new Channel(null, null, callback, channelLoopback);
             /* Checking */
             channel.send(text);
-            assert.isTrue(callback.alwaysCalledWith(text, channel));
+            assert.isTrue(callback.alwaysCalledWith(channel, text));
         });
     });
 

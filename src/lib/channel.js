@@ -106,7 +106,7 @@ export default class Channel {
         /* Package with data */
         if (request[0] == 'data') {
             request[1] = this._decryption(request[1]);
-            this.gotPackage(request[1], this);
+            this.gotPackage(this, request[1]);
         }
 
         /* Package end of communication */
