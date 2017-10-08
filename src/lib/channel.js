@@ -1,3 +1,4 @@
+import jsonpack from 'jsonpack';
 import crypto from 'crypto';
 import uuid from 'uuid';
 
@@ -225,7 +226,7 @@ export default class Channel {
     _assemblePackage(data, type) {
         type = this._isString(type) ? type : 'data';
         var request = [type, data];
-        return JSON.stringify(request);
+        return jsonpack.pack(request);
     }
 
     /**
@@ -235,7 +236,7 @@ export default class Channel {
      * @description Parses the request, it returns the final package
      */
     _disassemblePackage(request) {
-        return JSON.parse(request);
+        return jsonpack.unpack(request);
     }
 
     /**

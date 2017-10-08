@@ -86,7 +86,7 @@ export default function () {
                 var channel = simpleChannel();
                 var result = channel._assemblePackage(undefined, null);
                 var request = channel._disassemblePackage(result);
-                assert.isNull(request[1]);
+                assert.isUndefined(request[1]);
             });
 
             it('Number', () => {
@@ -111,13 +111,6 @@ export default function () {
                 var result = channel._assemblePackage(data, null);
                 var request = channel._disassemblePackage(result);
                 assert.deepEqual(request[1], data);
-            });
-
-            it('Function', () => {
-                var channel = simpleChannel();
-                var result = channel._assemblePackage(() => {}, null);
-                var request = channel._disassemblePackage(result);
-                assert.isNull(request[1]);
             });
         });
     });
