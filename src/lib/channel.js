@@ -101,21 +101,21 @@ export default class Channel {
             throw new Error('');
         }
 
-        var type = request.charAt(0);
-        var data = request.slice(1);
+        var type = request.slice(0, 3);
+        var data = request.slice(3);
 
         /* Package end of communication */
-        if (type == '2') {
+        if (type == 'RST') {
             this.disconnected();
         }
 
         /* Authorization package */
-        else if (type == '1') {
+        else if (type == 'SYN') {
             this._registration(data);
         }
 
         /* Package with data */
-        else {
+        else if (type == 'ACK') {
             data = this._decryption(data);
             this.gotPackage(this, data);
         }
@@ -167,12 +167,12 @@ export default class Channel {
     connect(authorization) {
         authorization = !!authorization;
 
-        var key = null;
+        var key = '';
         if (authorization) {
             key = this.publicKey;
         }
 
-        var request = this._assemblePackage(key, '1');
+        var request = this._assemblePackage(key, 'SYN');
         this.sendPackage(request);
     }
 
@@ -182,7 +182,7 @@ export default class Channel {
      * Also performs the closure of the communication channel.
      */
     disconnect() {
-        var request = this._assemblePackage(null, '2');
+        var request = this._assemblePackage('', 'RST');
         this.sendPackage(request);
         this.disconnected();
     }
@@ -194,7 +194,7 @@ export default class Channel {
      */
     _registration(incomingKey) {
         /* The key was not transferred */
-        if (!this._isString(incomingKey)) {
+        if (!incomingKey) {
             this.sharedKey = null;
             this._decipher = null;
             this._cipher = null;
@@ -219,7 +219,7 @@ export default class Channel {
      * @description Generates the final packet for transmission
      */
     _assemblePackage(data, type) {
-        type = this._isString(type) ? type : '3';
+        type = this._isString(type) ? type : 'ACK';
         return type.concat(data);
     }
 
