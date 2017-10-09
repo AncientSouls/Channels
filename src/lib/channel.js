@@ -1,4 +1,3 @@
-import jsonpack from 'jsonpack';
 import crypto from 'crypto';
 import uuid from 'uuid';
 
@@ -102,27 +101,23 @@ export default class Channel {
             throw new Error('');
         }
 
-        request = this._disassemblePackage(request);
-
-        /* Package with data */
-        if (request[0] == 'data') {
-            request[1] = this._decryption(request[1]);
-            this.gotPackage(this, request[1]);
-        }
+        var type = request.charAt(0);
+        var data = request.slice(1);
 
         /* Package end of communication */
-        else if (request[0] == 'close') {
+        if (type == '2') {
             this.disconnected();
         }
 
         /* Authorization package */
-        else if (request[0] == 'connect') {
-            this._registration(request[1]);
+        else if (type == '1') {
+            this._registration(data);
         }
 
-        /* Exceptions in the work */
+        /* Package with data */
         else {
-            this._handlerError(request[1]);
+            data = this._decryption(data);
+            this.gotPackage(this, data);
         }
     }
 
@@ -177,7 +172,7 @@ export default class Channel {
             key = this.publicKey;
         }
 
-        var request = this._assemblePackage(key, 'connect');
+        var request = this._assemblePackage(key, '1');
         this.sendPackage(request);
     }
 
@@ -187,7 +182,7 @@ export default class Channel {
      * Also performs the closure of the communication channel.
      */
     disconnect() {
-        var request = this._assemblePackage(null, 'close');
+        var request = this._assemblePackage(null, '2');
         this.sendPackage(request);
         this.disconnected();
     }
@@ -224,19 +219,8 @@ export default class Channel {
      * @description Generates the final packet for transmission
      */
     _assemblePackage(data, type) {
-        type = this._isString(type) ? type : 'data';
-        var request = [type, data];
-        return jsonpack.pack(request);
-    }
-
-    /**
-     * @protected
-     * @param {String} request - Received request
-     * @returns {Array} The final package
-     * @description Parses the request, it returns the final package
-     */
-    _disassemblePackage(request) {
-        return jsonpack.unpack(request);
+        type = this._isString(type) ? type : '3';
+        return type.concat(data);
     }
 
     /**
@@ -274,14 +258,6 @@ export default class Channel {
      */
     _generationUUID() {
         return uuid.v4();
-    }
-
-    /**
-     * @param {String} error - Error text
-     * @description The error handler
-     */
-    _handlerError(error) {
-        throw new Error(error);
     }
 
     /**
