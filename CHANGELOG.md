@@ -1,3 +1,11 @@
+## 0.1.0 (08-10-2017):
+### Channel:
+- Change the invocation order of the inverse function.
+
+### Globally:
+- Many small fixes of the system of automatic testing and deployment.
+- Disable the Source Map generator.
+
 ## 0.0.0-beta.4 (23-09-2017)
 ### Channel:
 * Added check before running `onConnected` and `onDisconnected`.
