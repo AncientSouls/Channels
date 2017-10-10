@@ -2,10 +2,10 @@
  * @module ancient-channels
  */
 
-import Manager from './manager';
+import ChannelsManager from './manager';
 import Channel from './channel';
 
 export {
-    Manager,
+    ChannelsManager,
     Channel
 };

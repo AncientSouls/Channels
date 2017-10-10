@@ -4,7 +4,7 @@ import { Channel } from './index';
  * @class Manager
  * @memberof module:ancient-channels
  */
-export default class Manager {
+export default class ChannelsManager {
     /**
      * @constructs Manager
      * @param {Function} onConnected - Callback when a channel is connected
