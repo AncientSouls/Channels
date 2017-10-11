@@ -1,44 +1,56 @@
 import { assert } from 'chai';
+import crypto from 'crypto';
 import sinon from 'sinon';
 
-import { Manager } from '../lib/index';
-import { simpleChannel, simpleManager } from './simpleFunctions';
+import { Channel, ChannelsManager } from '../lib/index';
 
-import newTest from './manager/new';
-import channelConnected from './manager/channelConnected';
-import channelDisconnected from './manager/channelDisconnected';
+function sendPackage(pkg) {
+    this.handlerIncomingPacket(pkg);
+}
+
+function generatorString() {
+    return crypto.randomBytes(20).toString('hex');
+}
 
 export default function () {
-    describe('Class Manager:', () => {
-        describe('Adapter registration:', () => {
-            it('onConnected()', () => {
-                var callback = sinon.spy();
-                var channel = simpleChannel();
-                var manager = new Manager(callback, null, null);
-                manager.onConnected(channel);
-                assert.isTrue(callback.called);
-            });
+    describe('Manager:', () => {
+        /* Spies */
+        var onDisconnected = null;
+        var onConnected = null;
+        /* Manager */
+        var channelsManager = null;
+        var channel = null;
+        /* Usefulness */
+        var pkg = null;
 
-            it('onDisconnected()', () => {
-                var callback = sinon.spy();
-                var channel = simpleChannel();
-                var manager = new Manager(null, callback, null);
-                manager.onDisconnected(channel);
-                assert.isTrue(callback.called);
-            });
-
-            it('gotPackage()', () => {
-                var callback = sinon.spy();
-                var manager = new Manager(null, null, callback);
-                manager.gotPackage(null, null);
-                assert.isTrue(callback.called);
-            });
+        beforeEach(() => {
+            /* Creation of spies */
+            onConnected = sinon.spy();
+            onDisconnected = sinon.spy();
+            /* Creating a manager */
+            channelsManager = new ChannelsManager(Channel, onConnected, onDisconnected, sinon.spy());
+            channel = channelsManager.new(sendPackage);
+            /* Other usefulness */
+            pkg = generatorString();
         });
 
-        describe('Function check:', () => {
-            channelConnected();
-            channelDisconnected();
-            newTest();
+        it('gotPackage()', () => {
+            channel.send(pkg);
+            assert.isTrue(channel.gotPackage.calledWith(channel, pkg));
+            assert.isTrue(channelsManager.gotPackage.calledWith(channel, pkg));
+        });
+
+        it('onConnected()', () => {
+            channel.connect(true);
+            assert.hasAnyKeys(channelsManager.channels, channel.id);
+            assert.isTrue(onConnected.called);
+        });
+
+        it('onDisconnected()', () => {
+            channel.connect(true);
+            channel.disconnect();
+            assert.doesNotHaveAnyKeys(channelsManager.channels, channel.id);
+            assert.isTrue(onDisconnected.called);
         });
     });
 }
