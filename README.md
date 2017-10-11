@@ -6,6 +6,8 @@
 [![dependencies Status](https://david-dm.org/AncientSouls/Channels/status.svg)](https://david-dm.org/AncientSouls/Channels)
 [![devDependencies Status](https://david-dm.org/AncientSouls/Channels/dev-status.svg)](https://david-dm.org/AncientSouls/Channels?type=dev)
 
+Constructor of communication channel with universal API.
+
 ## License
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/eslint/eslint)
 

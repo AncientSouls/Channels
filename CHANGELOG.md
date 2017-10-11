@@ -1,3 +1,14 @@
+# Description of releases
+## 0.2.0 (11-10-2017)
+### Manager:
+- Rename the exported class.
+- Unbinding the manager from the channels.
+
+### Globally:
+- Added examples.
+- Updated dependencies.
+- Tests for more compact tests are rewritten.
+
 ## 0.1.0 (08-10-2017):
 ### Channel:
 - Change the invocation order of the inverse function.

@@ -1,7 +1,7 @@
 {
     "name": "ancient-channels",
-    "version": "0.1.1",
-    "description": "",
+    "version": "0.2.0",
+    "description": "Constructor of communication channel with universal API.",
     "main": "lib/index.js",
     "scripts": {
         "test": "mocha src/tests/index.js --require babel-core/register",
