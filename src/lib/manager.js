@@ -36,7 +36,7 @@ export default class ChannelsManager {
         /**
          * @protected
          * @type {Function}
-         * @description Callback when information is received
+         * @description Callback when information is received.
          */
         this.gotPackage = gotPackage;
 
@@ -50,7 +50,7 @@ export default class ChannelsManager {
         /**
          * @protected
          * @type {Object}
-         * @description Channel storage
+         * @description Channel storage.
          */
         this.channels = {};
     }
@@ -59,7 +59,7 @@ export default class ChannelsManager {
      * @protected
      * @param {Function} sendPackage - Function of sending data on transport
      * @return {Object} Assembled channel class
-     * @description Create a new channel
+     * @description Create a new channel.
      */
     new(sendPackage) {
         return new this.Channel(this.onConnected, this.onDisconnected, this.gotPackage, sendPackage);
