@@ -23,7 +23,7 @@ export default function () {
 
             it('connected()', () => {
                 channel.connected();
-                assert.isTrue(channel.onConnected.calledWith(channel));
+                assert.isTrue(channel.onConnected.calledWithExactly(channel));
                 assert.isTrue(channel.isConnected);
                 assert.isNotNull(channel.id);
             });
@@ -31,7 +31,7 @@ export default function () {
             it('disconnected()', () => {
                 channel.connected();
                 channel.disconnected();
-                assert.isTrue(channel.onDisconnected.calledWith(channel));
+                assert.isTrue(channel.onDisconnected.calledWithExactly(channel));
                 assert.isFalse(channel.isConnected);
             });
 
@@ -68,7 +68,7 @@ export default function () {
 
             it('Loopback', () => {
                 channel.send(pkg);
-                assert.isTrue(channel.gotPackage.calledWith(channel, pkg));
+                assert.isTrue(channel.gotPackage.calledWithExactly(channel, pkg));
             });
 
             it('Send encrypted', () => {
@@ -84,7 +84,7 @@ export default function () {
                 sinon.stub(channel, '_assemblePackage').callsFake(original);
                 channel.connect(false);
                 channel.send(pkg);
-                assert.isTrue(channel._assemblePackage.calledWith(pkg));
+                assert.isTrue(channel._assemblePackage.calledWithExactly(pkg));
             });
         });
     });

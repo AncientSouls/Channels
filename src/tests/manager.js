@@ -37,20 +37,20 @@ export default function () {
         it('gotPackage()', () => {
             channel.send(pkg);
             assert.isTrue(channel.gotPackage.calledWith(channel, pkg));
-            assert.isTrue(channelsManager.gotPackage.calledWith(channel, pkg));
+            assert.isTrue(channelsManager.gotPackage.calledWithExactly(channel, pkg));
         });
 
         it('onConnected()', () => {
             channel.connect(true);
             assert.hasAnyKeys(channelsManager.channels, channel.id);
-            assert.isTrue(onConnected.called);
+            assert.isTrue(onConnected.calledWithExactly(channel));
         });
 
         it('onDisconnected()', () => {
             channel.connect(true);
             channel.disconnect();
             assert.doesNotHaveAnyKeys(channelsManager.channels, channel.id);
-            assert.isTrue(onDisconnected.called);
+            assert.isTrue(onDisconnected.calledWithExactly(channel));
         });
     });
 }
