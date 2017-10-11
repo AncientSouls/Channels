@@ -1,5 +1,3 @@
-import { Channel } from './index';
-
 /**
  * @class Manager
  * @memberof module:ancient-channels
@@ -7,14 +5,15 @@ import { Channel } from './index';
 export default class ChannelsManager {
     /**
      * @constructs Manager
+     * @param {Object} Channel - Constructor for the channel
      * @param {Function} onConnected - Callback when a channel is connected
      * @param {Function} onDisconnected - Callback when the channel is disconnected
      * @param {Function} gotPackage - Callback when information is received
      */
-    constructor(onConnected, onDisconnected, gotPackage) {
+    constructor(Channel, onConnected, onDisconnected, gotPackage) {
         /**
          * @protected
-         * @param {Object} channel - Connected channel
+         * @type {Object} channel - Connected channel
          * @description Function for the adapter.
          * Used by the channel when establishing a connection.
          */
@@ -25,7 +24,7 @@ export default class ChannelsManager {
 
         /**
          * @protected
-         * @param {Object} channel - Broken channel
+         * @type {Object} channel - Broken channel
          * @description Function for the adapter.
          * Used by the channel when the connection is broken.
          */
@@ -35,10 +34,18 @@ export default class ChannelsManager {
         };
 
         /**
+         * @protected
          * @type {Function}
          * @description Callback when information is received
          */
         this.gotPackage = gotPackage;
+
+        /**
+         * @protected
+         * @type {Object}
+         * @description Constructor for the channel.
+         */
+        this.Channel = Channel;
 
         /**
          * @protected
@@ -55,6 +62,6 @@ export default class ChannelsManager {
      * @description Create a new channel
      */
     new(sendPackage) {
-        return new Channel(this.onConnected, this.onDisconnected, this.gotPackage, sendPackage);
+        return new this.Channel(this.onConnected, this.onDisconnected, this.gotPackage, sendPackage);
     }
 }
