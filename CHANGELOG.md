@@ -1,4 +1,13 @@
 # Description of releases
+## 1.0.0 (08-11-2017)
+### Channel:
+- Renaming the `handlerIncomingPacket` function.
+- Removed examples in the tests.
+- Update the `sendPackage` function.
+- Generation of all keys, and auxiliary classes are put into external functions for greater modularity.
+- Bug reports are displayed.
+- Expansion of the publication of the project.
+
 ## 0.2.0 (11-10-2017)
 ### Manager:
 - Rename the exported class.
