@@ -41,24 +41,21 @@ export default class Channel {
         /**
          * @protected
          * @type {Object}
-         * @description Utility for creating Elliptic Curve Diffie-Hellman (ECDH) key exchanges.
-         * https://nodejs.org/api/crypto.html#crypto_class_diffiehellman
+         * @description Bunch of keys
          */
-        this._ecdh = crypto.createECDH('secp256k1');
+        this._ecdh = this._generateBunchKeys();
 
         /**
          * @protected
          * @type {Object}
-         * @description Instances of the Cipher class are used to encrypt data.
-         * https://nodejs.org/api/crypto.html#crypto_class_cipher
+         * @description Instances of the Cipher class
          */
         this._cipher = null;
 
         /**
          * @protected
          * @type {Object}
-         * @description Instances of the Decipher class are used to decrypt data.
-         * https://nodejs.org/api/crypto.html#crypto_class_decipher
+         * @description Instances of the Decipher class
          */
         this._decipher = null;
 
@@ -88,7 +85,7 @@ export default class Channel {
          * @type {String}
          * @description Public key
          */
-        this.publicKey = this._ecdh.generateKeys('base64', 'compressed');
+        this.publicKey = this._generatePublicKey();
     }
 
     /**
@@ -189,6 +186,57 @@ export default class Channel {
 
     /**
      * @protected
+     * @returns {Object} Bunch of keys
+     * @description Utility for creating Elliptic Curve Diffie-Hellman (ECDH) key exchanges.
+     * https://nodejs.org/api/crypto.html#crypto_class_diffiehellman
+     */
+    _generateBunchKeys() {
+        return crypto.createECDH('secp256k1');
+    }
+
+    /**
+     * @protected
+     * @returns {String} Public Key
+     * @description Public Key Generator
+     */
+    _generatePublicKey() {
+        return this._ecdh.generateKeys('base64', 'compressed');
+    }
+
+    /**
+     * @protected
+     * @param {String} publicKey
+     * @returns {String} Shared Key
+     * @description Shared Key Generator
+     */
+    _generateSharedKey(publicKey) {
+        return this._ecdh.computeSecret(publicKey, 'base64', 'base64');
+    }
+
+    /**
+     * @protected
+     * @param {String} sharedKey
+     * @returns {String} Cipher class
+     * @description Instances of the Cipher class are used to encrypt data.
+     * https://nodejs.org/api/crypto.html#crypto_class_cipher
+     */
+    _createCipher(sharedKey) {
+        return crypto.createCipher('aes192', sharedKey);
+    }
+
+    /**
+     * @protected
+     * @param {String} sharedKey
+     * @returns {String} Decipher class
+     * @description Instances of the Decipher class are used to decrypt data.
+     * https://nodejs.org/api/crypto.html#crypto_class_decipher
+     */
+    _createDecipher(sharedKey) {
+        return crypto.createDecipher('aes192', sharedKey);
+    }
+
+    /**
+     * @protected
      * @param {String} incomingKey
      * @description Coordinates authorization data
      */
@@ -202,9 +250,9 @@ export default class Channel {
 
         /* The key has been transferred */
         else {
-            this.sharedKey = this._ecdh.computeSecret(incomingKey, 'base64', 'base64');
-            this._decipher = crypto.createDecipher('aes192', this.sharedKey);
-            this._cipher = crypto.createCipher('aes192', this.sharedKey);
+            this.sharedKey = this._generateSharedKey(incomingKey);
+            this._decipher = this._createDecipher(this.sharedKey);
+            this._cipher = this._createCipher(this.sharedKey);
         }
 
         /* Complete the connection setup */
