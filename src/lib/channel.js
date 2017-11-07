@@ -95,7 +95,7 @@ export default class Channel {
      */
     got(request) {
         if (!this._isString(request)) {
-            throw new Error('');
+            throw new TypeError('\'request\' is not a string');
         }
 
         var type = request.slice(0, 3);
@@ -125,7 +125,7 @@ export default class Channel {
      */
     send(data) {
         if (!this._isString(data)) {
-            throw new Error('');
+            throw new TypeError('\'data\' is not a string');
         }
 
         data = this._encryption(data);
