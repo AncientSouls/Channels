@@ -96,5 +96,31 @@ export default function () {
                 assert.isTrue(channel._assemblePackage.calledWithExactly(pkg));
             });
         });
+
+        describe('Example:', () => {
+            it('Local transport', () => {
+                /* First channel */
+                var channel_1 = new Channel(null, null, sinon.spy(), (pkg) => {
+                    channel_2.got(pkg);
+                });
+
+                /* Second channel */
+                var channel_2 = new Channel(null, null, sinon.spy(), (pkg) => {
+                    channel_1.got(pkg);
+                });
+
+                /* Reconciliation of channels */
+                channel_1.connect(true);
+                channel_2.connect(true);
+
+                /* Data transfer */
+                var pkg = generatorString();
+                channel_1.send(pkg);
+
+                /* Verification of results */
+                var result = channel_2.gotPackage.calledWithExactly(channel_2, pkg);
+                assert.isTrue(result);
+            });
+        });
     });
 }
