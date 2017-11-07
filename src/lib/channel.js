@@ -96,7 +96,7 @@ export default class Channel {
      * @param {String} request - Request for processing
      * @description Processing incoming packets
      */
-    handlerIncomingPacket(request) {
+    got(request) {
         if (!this._isString(request)) {
             throw new Error('');
         }

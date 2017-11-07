@@ -16,11 +16,11 @@ export default function () {
 
             beforeEach(() => {
                 channel_1 = new Channel(null, null, sinon.spy(), (pkg) => {
-                    channel_2.handlerIncomingPacket(pkg);
+                    channel_2.got(pkg);
                 });
 
                 channel_2 = new Channel(null, null, sinon.spy(), (pkg) => {
-                    channel_1.handlerIncomingPacket(pkg);
+                    channel_1.got(pkg);
                 });
 
                 channel_2.connect(true);

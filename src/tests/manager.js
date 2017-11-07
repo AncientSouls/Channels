@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { Channel, ChannelsManager } from '../lib/index';
 
 function sendPackage(pkg) {
-    this.handlerIncomingPacket(pkg);
+    this.got(pkg);
 }
 
 function generatorString() {
@@ -17,9 +17,11 @@ export default function () {
         /* Spies */
         var onDisconnected = null;
         var onConnected = null;
+
         /* Manager */
         var channelsManager = null;
         var channel = null;
+
         /* Usefulness */
         var pkg = null;
 
@@ -27,21 +29,25 @@ export default function () {
             /* Creation of spies */
             onConnected = sinon.spy();
             onDisconnected = sinon.spy();
+
             /* Creating a manager */
             channelsManager = new ChannelsManager(Channel, onConnected, onDisconnected, sinon.spy());
             channel = channelsManager.new(sendPackage);
+
             /* Other usefulness */
             pkg = generatorString();
         });
 
         it('gotPackage()', () => {
             channel.send(pkg);
+
             assert.isTrue(channel.gotPackage.calledWith(channel, pkg));
             assert.isTrue(channelsManager.gotPackage.calledWithExactly(channel, pkg));
         });
 
         it('onConnected()', () => {
             channel.connect(true);
+
             assert.hasAnyKeys(channelsManager.channels, channel.id);
             assert.isTrue(onConnected.calledWithExactly(channel));
         });
@@ -49,6 +55,7 @@ export default function () {
         it('onDisconnected()', () => {
             channel.connect(true);
             channel.disconnect();
+
             assert.doesNotHaveAnyKeys(channelsManager.channels, channel.id);
             assert.isTrue(onDisconnected.calledWithExactly(channel));
         });

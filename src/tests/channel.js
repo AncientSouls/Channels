@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { Channel } from '../lib/index';
 
 function sendPackage(pkg) {
-    this.handlerIncomingPacket(pkg);
+    this.got(pkg);
 }
 
 function generatorString() {
@@ -23,6 +23,7 @@ export default function () {
 
             it('connected()', () => {
                 channel.connected();
+
                 assert.isTrue(channel.onConnected.calledWithExactly(channel));
                 assert.isTrue(channel.isConnected);
                 assert.isNotNull(channel.id);
@@ -31,6 +32,7 @@ export default function () {
             it('disconnected()', () => {
                 channel.connected();
                 channel.disconnected();
+
                 assert.isTrue(channel.onDisconnected.calledWithExactly(channel));
                 assert.isFalse(channel.isConnected);
             });
@@ -38,6 +40,7 @@ export default function () {
             it('connect(true)', () => {
                 channel.connected = sinon.spy();
                 channel.connect(true);
+
                 assert.isString(channel.sharedKey);
                 assert.isTrue(channel.connected.called);
             });
@@ -45,6 +48,7 @@ export default function () {
             it('connect(false)', () => {
                 channel.connected = sinon.spy();
                 channel.connect(false);
+
                 assert.isNull(channel.sharedKey);
                 assert.isTrue(channel.connected.called);
             });
@@ -52,6 +56,7 @@ export default function () {
             it('disconnect()', () => {
                 channel.disconnected = sinon.spy();
                 channel.disconnect();
+
                 assert.isFalse(channel.isConnected);
                 assert.isTrue(channel.disconnected.called);
             });
@@ -73,17 +78,21 @@ export default function () {
 
             it('Send encrypted', () => {
                 var original = channel._assemblePackage;
+
                 sinon.stub(channel, '_assemblePackage').callsFake(original);
                 channel.connect(true);
                 channel.send(pkg);
+
                 assert.isTrue(channel._assemblePackage.neverCalledWith(pkg));
             });
 
             it('Send unencrypted', () => {
                 var original = channel._assemblePackage;
+
                 sinon.stub(channel, '_assemblePackage').callsFake(original);
                 channel.connect(false);
                 channel.send(pkg);
+
                 assert.isTrue(channel._assemblePackage.calledWithExactly(pkg));
             });
         });
