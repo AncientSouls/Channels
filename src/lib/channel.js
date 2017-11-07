@@ -133,7 +133,7 @@ export default class Channel {
 
         data = this._encryption(data);
         var request = this._assemblePackage(data);
-        this.sendPackage(request);
+        this.sendPackage(this, request);
     }
 
     /**
@@ -164,7 +164,7 @@ export default class Channel {
      * @param {Boolean=} [authorization] - Switch authorization
      * @description Sends the authorization package
      */
-    connect(authorization) {
+    connect(authorization = true) {
         authorization = !!authorization;
 
         var key = '';
@@ -173,7 +173,7 @@ export default class Channel {
         }
 
         var request = this._assemblePackage(key, 'SYN');
-        this.sendPackage(request);
+        this.sendPackage(this, request);
     }
 
     /**
@@ -183,7 +183,7 @@ export default class Channel {
      */
     disconnect() {
         var request = this._assemblePackage('', 'RST');
-        this.sendPackage(request);
+        this.sendPackage(this, request);
         this.disconnected();
     }
 

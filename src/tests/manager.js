@@ -4,8 +4,8 @@ import sinon from 'sinon';
 
 import { Channel, ChannelsManager } from '../lib/index';
 
-function sendPackage(pkg) {
-    this.got(pkg);
+function sendPackage(channel, pkg) {
+    channel.got(pkg);
 }
 
 function generatorString() {

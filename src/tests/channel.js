@@ -4,8 +4,8 @@ import sinon from 'sinon';
 
 import { Channel } from '../lib/index';
 
-function sendPackage(pkg) {
-    this.got(pkg);
+function sendPackage(channel, pkg) {
+    channel.got(pkg);
 }
 
 function generatorString() {
@@ -100,12 +100,12 @@ export default function () {
         describe('Example:', () => {
             it('Local transport', () => {
                 /* First channel */
-                var channel_1 = new Channel(null, null, sinon.spy(), (pkg) => {
+                var channel_1 = new Channel(null, null, sinon.spy(), (channel, pkg) => {
                     channel_2.got(pkg);
                 });
 
                 /* Second channel */
-                var channel_2 = new Channel(null, null, sinon.spy(), (pkg) => {
+                var channel_2 = new Channel(null, null, sinon.spy(), (channel, pkg) => {
                     channel_1.got(pkg);
                 });
 
