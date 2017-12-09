@@ -129,7 +129,7 @@ export default class Channel {
         }
 
         data = this._encryption(data);
-        var request = this._assemblePackage(data);
+        var request = this._createPackage(data);
         this.sendPackage(this, request);
     }
 
@@ -169,7 +169,7 @@ export default class Channel {
             key = this.publicKey;
         }
 
-        var request = this._assemblePackage(key, 'SYN');
+        var request = this._createPackage(key, 'SYN');
         this.sendPackage(this, request);
     }
 
@@ -179,7 +179,7 @@ export default class Channel {
      * Also performs the closure of the communication channel.
      */
     disconnect() {
-        var request = this._assemblePackage('', 'RST');
+        var request = this._createPackage('', 'RST');
         this.sendPackage(this, request);
         this.disconnected();
     }
@@ -266,7 +266,7 @@ export default class Channel {
      * @returns {String} The final package
      * @description Generates the final packet for transmission
      */
-    _assemblePackage(data, type) {
+    _createPackage(data, type) {
         type = this._isString(type) ? type : 'ACK';
         return type.concat(data);
     }

@@ -77,23 +77,23 @@ export default function () {
             });
 
             it('Send encrypted', () => {
-                var original = channel._assemblePackage;
+                var original = channel._createPackage;
 
-                sinon.stub(channel, '_assemblePackage').callsFake(original);
+                sinon.stub(channel, '_createPackage').callsFake(original);
                 channel.connect(true);
                 channel.send(pkg);
 
-                assert.isTrue(channel._assemblePackage.neverCalledWith(pkg));
+                assert.isTrue(channel._createPackage.neverCalledWith(pkg));
             });
 
             it('Send unencrypted', () => {
-                var original = channel._assemblePackage;
+                var original = channel._createPackage;
 
-                sinon.stub(channel, '_assemblePackage').callsFake(original);
+                sinon.stub(channel, '_createPackage').callsFake(original);
                 channel.connect(false);
                 channel.send(pkg);
 
-                assert.isTrue(channel._assemblePackage.calledWithExactly(pkg));
+                assert.isTrue(channel._createPackage.calledWithExactly(pkg));
             });
         });
 
