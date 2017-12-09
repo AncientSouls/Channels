@@ -90,6 +90,57 @@ export default class Channel {
 
     /**
      * @protected
+     * @param {Boolean=} [authorization] - Switch authorization
+     * @description Sends the authorization package
+     */
+    connect(authorization = true) {
+        authorization = !!authorization;
+
+        var key = '';
+        if (authorization) {
+            key = this.publicKey;
+        }
+
+        var request = this._createPackage(key, 'SYN');
+        this.sendPackage(this, request);
+    }
+
+    /**
+     * @protected
+     * @description Changes the status of the channel
+     */
+    connected() {
+        this.isConnected = true;
+        this.id = this._generationUUID();
+        if (this._isFunction(this.onConnected)) {
+            this.onConnected(this);
+        }
+    }
+
+    /**
+     * @protected
+     * @description Sending a disconnect packet.
+     * Also performs the closure of the communication channel.
+     */
+    disconnect() {
+        var request = this._createPackage('', 'RST');
+        this.sendPackage(this, request);
+        this.disconnected();
+    }
+
+    /**
+     * @protected
+     * @description Changes the status of the channel
+     */
+    disconnected() {
+        this.isConnected = false;
+        if (this._isFunction(this.onDisconnected)) {
+            this.onDisconnected(this);
+        }
+    }
+
+    /**
+     * @protected
      * @param {String} request - Request for processing
      * @description Processing incoming packets
      */
@@ -135,86 +186,6 @@ export default class Channel {
 
     /**
      * @protected
-     * @description Changes the status of the channel
-     */
-    connected() {
-        this.isConnected = true;
-        this.id = this._generationUUID();
-        if (this._isFunction(this.onConnected)) {
-            this.onConnected(this);
-        }
-    }
-
-    /**
-     * @protected
-     * @description Changes the status of the channel
-     */
-    disconnected() {
-        this.isConnected = false;
-        if (this._isFunction(this.onDisconnected)) {
-            this.onDisconnected(this);
-        }
-    }
-
-    /**
-     * @protected
-     * @param {Boolean=} [authorization] - Switch authorization
-     * @description Sends the authorization package
-     */
-    connect(authorization = true) {
-        authorization = !!authorization;
-
-        var key = '';
-        if (authorization) {
-            key = this.publicKey;
-        }
-
-        var request = this._createPackage(key, 'SYN');
-        this.sendPackage(this, request);
-    }
-
-    /**
-     * @protected
-     * @description Sending a disconnect packet.
-     * Also performs the closure of the communication channel.
-     */
-    disconnect() {
-        var request = this._createPackage('', 'RST');
-        this.sendPackage(this, request);
-        this.disconnected();
-    }
-
-    /**
-     * @protected
-     * @returns {Object} Bunch of keys
-     * @description Utility for creating Elliptic Curve Diffie-Hellman (ECDH) key exchanges.
-     * https://nodejs.org/api/crypto.html#crypto_class_diffiehellman
-     */
-    _generateBunchKeys() {
-        return crypto.createECDH('secp256k1');
-    }
-
-    /**
-     * @protected
-     * @returns {String} Public Key
-     * @description Public Key Generator
-     */
-    _generatePublicKey() {
-        return this._ecdh.generateKeys('base64', 'compressed');
-    }
-
-    /**
-     * @protected
-     * @param {String} publicKey
-     * @returns {String} Shared Key
-     * @description Shared Key Generator
-     */
-    _generateSharedKey(publicKey) {
-        return this._ecdh.computeSecret(publicKey, 'base64', 'base64');
-    }
-
-    /**
-     * @protected
      * @param {String} sharedKey
      * @returns {String} Cipher class
      * @description Instances of the Cipher class are used to encrypt data.
@@ -233,30 +204,6 @@ export default class Channel {
      */
     _createDecipher(sharedKey) {
         return crypto.createDecipher('aes192', sharedKey);
-    }
-
-    /**
-     * @protected
-     * @param {String} incomingKey
-     * @description Coordinates authorization data
-     */
-    _registration(incomingKey) {
-        /* The key was not transferred */
-        if (!incomingKey) {
-            this.sharedKey = null;
-            this._decipher = null;
-            this._cipher = null;
-        }
-
-        /* The key has been transferred */
-        else {
-            this.sharedKey = this._generateSharedKey(incomingKey);
-            this._decipher = this._createDecipher(this.sharedKey);
-            this._cipher = this._createCipher(this.sharedKey);
-        }
-
-        /* Complete the connection setup */
-        this.connected();
     }
 
     /**
@@ -301,6 +248,35 @@ export default class Channel {
 
     /**
      * @protected
+     * @returns {Object} Bunch of keys
+     * @description Utility for creating Elliptic Curve Diffie-Hellman (ECDH) key exchanges.
+     * https://nodejs.org/api/crypto.html#crypto_class_diffiehellman
+     */
+    _generateBunchKeys() {
+        return crypto.createECDH('secp256k1');
+    }
+
+    /**
+     * @protected
+     * @returns {String} Public Key
+     * @description Public Key Generator
+     */
+    _generatePublicKey() {
+        return this._ecdh.generateKeys('base64', 'compressed');
+    }
+
+    /**
+     * @protected
+     * @param {String} publicKey
+     * @returns {String} Shared Key
+     * @description Shared Key Generator
+     */
+    _generateSharedKey(publicKey) {
+        return this._ecdh.computeSecret(publicKey, 'base64', 'base64');
+    }
+
+    /**
+     * @protected
      * @returns {String} UUID
      * @description Generates an identifier
      */
@@ -310,12 +286,26 @@ export default class Channel {
 
     /**
      * @protected
-     * @param {String} value - The variable to check
-     * @returns {Boolean} Result of checking
-     * @description Checks the type of the variable
+     * @param {String} incomingKey
+     * @description Coordinates authorization data
      */
-    _isString(value) {
-        return typeof value === 'string';
+    _registration(incomingKey) {
+        /* The key was not transferred */
+        if (!incomingKey) {
+            this.sharedKey = null;
+            this._decipher = null;
+            this._cipher = null;
+        }
+
+        /* The key has been transferred */
+        else {
+            this.sharedKey = this._generateSharedKey(incomingKey);
+            this._decipher = this._createDecipher(this.sharedKey);
+            this._cipher = this._createCipher(this.sharedKey);
+        }
+
+        /* Complete the connection setup */
+        this.connected();
     }
 
     /**
@@ -326,5 +316,15 @@ export default class Channel {
      */
     _isFunction(value) {
         return typeof value === 'function';
+    }
+
+    /**
+     * @protected
+     * @param {String} value - The variable to check
+     * @returns {Boolean} Result of checking
+     * @description Checks the type of the variable
+     */
+    _isString(value) {
+        return typeof value === 'string';
     }
 }
