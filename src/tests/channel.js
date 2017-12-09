@@ -98,28 +98,41 @@ export default function () {
         });
 
         describe('Example:', () => {
-            it('Local transport', () => {
+            it('Local transport', (done) => {
+                var pkg = generatorString();
+
                 /* First channel */
-                var channel_1 = new Channel(null, null, sinon.spy(), (channel, pkg) => {
-                    channel_2.got(pkg);
-                });
+                var client = new Channel(
+                    function onConnected(channel) {},
+                    function onDisconnected(channel) {},
+                    function gotPackage(channel, data) {
+                        assert.equal(pkg, data);
+                        done();
+                    },
+                    function sendPackage(channel, pkg) {
+                        server.got(pkg);
+                    }
+                );
 
                 /* Second channel */
-                var channel_2 = new Channel(null, null, sinon.spy(), (channel, pkg) => {
-                    channel_1.got(pkg);
-                });
+                var server = new Channel(
+                    function onConnected(channel) {
+                        channel.connect(true);
+                    },
+                    function onDisconnected(channel) {},
+                    function gotPackage(channel, data) {
+                        channel.send(data);
+                    },
+                    function sendPackage(channel, pkg) {
+                        client.got(pkg);
+                    }
+                );
 
                 /* Reconciliation of channels */
-                channel_1.connect(true);
-                channel_2.connect(true);
+                client.connect(true);
 
                 /* Data transfer */
-                var pkg = generatorString();
-                channel_1.send(pkg);
-
-                /* Verification of results */
-                var result = channel_2.gotPackage.calledWithExactly(channel_2, pkg);
-                assert.isTrue(result);
+                client.send(pkg);
             });
         });
     });
