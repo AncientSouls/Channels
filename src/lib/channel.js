@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import PSON from 'pson';
 import uuid from 'uuid';
 
 /**
@@ -16,82 +17,89 @@ export default class Channel {
     constructor(onConnected, onDisconnected, gotPackage, sendPackage) {
         /**
          * @type {Function}
-         * @description Callback after connection
+         * @description Callback after connection.
          */
         this.onConnected = onConnected;
 
         /**
          * @type {Function}
-         * @description Callback after disconnection
+         * @description Callback after disconnection.
          */
         this.onDisconnected = onDisconnected;
 
         /**
          * @type {Function}
-         * @description Callback when receiving a packet
+         * @description Callback when receiving a packet.
          */
         this.gotPackage = gotPackage;
 
         /**
          * @type {Function}
-         * @description Callback package sending
+         * @description Callback package sending.
          */
         this.sendPackage = sendPackage;
 
         /**
          * @protected
          * @type {Object}
-         * @description Bunch of keys
-         */
-        this._ecdh = this._generateBunchKeys();
-
-        /**
-         * @protected
-         * @type {Object}
-         * @description Instances of the Cipher class
+         * @description Instances of the Cipher class.
          */
         this._cipher = null;
 
         /**
          * @protected
          * @type {Object}
-         * @description Instances of the Decipher class
+         * @description Instances of the Decipher class.
          */
         this._decipher = null;
 
         /**
          * @protected
+         * @type {Object}
+         * @description An instance of ECDH class keys.
+         */
+        this._ecdh = this._generateBunchKeys();
+
+        /**
+         * @protected
+         * @type {Object}
+         * @description An instance of the serializer class.
+         */
+        this._serializer = this._createSerializer();
+
+        /**
+         * @protected
+         * @type {String}
+         * @description Channel identifier.
+         */
+        this.id = null;
+
+        /**
+         * @protected
          * @type {Boolean}
-         * @description Connection status
+         * @description Connection status.
          */
         this.isConnected = false;
 
         /**
          * @protected
          * @type {String}
-         * @description Channel identifier
-         */
-        this.id = null;
-
-        /**
-         * @protected
-         * @type {String}
-         * @description Authorization key
-         */
-        this.sharedKey = null;
-
-        /**
-         * @protected
-         * @type {String}
-         * @description Public key
+         * @description Public key.
          */
         this.publicKey = this._generatePublicKey();
+
+        /**
+         * @protected
+         * @type {String}
+         * @description Authorization key.
+         */
+        this.sharedKey = null;
     }
 
     /**
      * @protected
-     * @param {Boolean=} [authorization] - Switch authorization
-     * @description Sends the authorization package
+     * @param {Boolean=} [authorization]
+     * @description Connecting the channel.
      */
     connect(authorization = true) {
         authorization = !!authorization;
@@ -107,7 +115,7 @@ export default class Channel {
 
     /**
      * @protected
-     * @description Changes the status of the channel
+     * @description Change the status of the channel when connected.
      */
     connected() {
         this.isConnected = true;
@@ -119,8 +127,7 @@ export default class Channel {
 
     /**
      * @protected
-     * @description Sending a disconnect packet.
-     * Also performs the closure of the communication channel.
+     * @description Turn off the channel.
      */
     disconnect() {
         var request = this._createPackage('', 'RST');
@@ -130,7 +137,7 @@ export default class Channel {
 
     /**
      * @protected
-     * @description Changes the status of the channel
+     * @description Change the status of the channel when disconnected.
      */
     disconnected() {
         this.isConnected = false;
@@ -141,16 +148,16 @@ export default class Channel {
 
     /**
      * @protected
-     * @param {String} request - Request for processing
-     * @description Processing incoming packets
+     * @param {String} pkg - Received package
+     * @description Processing incoming packets.
      */
-    got(request) {
-        if (!this._isString(request)) {
-            throw new TypeError('\'request\' is not a string');
+    got(pkg) {
+        if (!this._isString(pkg)) {
+            throw new TypeError('\'pkg\' is not a string');
         }
 
-        var type = request.slice(0, 3);
-        var data = request.slice(3);
+        var type = pkg.slice(0, 3);
+        var data = pkg.slice(3);
 
         /* Package end of communication */
         if (type == 'RST') {
@@ -165,23 +172,21 @@ export default class Channel {
         /* Package with data */
         else if (type == 'ACK') {
             data = this._decryption(data);
+            data = this._deserialization(data);
             this.gotPackage(this, data);
         }
     }
 
     /**
      * @protected
-     * @param {String} Submitted data
-     * @description Generates and sends the packet
+     * @param {*} pkg - Submitted data
+     * @description Generates and sends the packet.
      */
     send(data) {
-        if (!this._isString(data)) {
-            throw new TypeError('\'data\' is not a string');
-        }
-
+        data = this._serialization(data);
         data = this._encryption(data);
-        var request = this._createPackage(data);
-        this.sendPackage(this, request);
+        var pkg = this._createPackage(data);
+        this.sendPackage(this, pkg);
     }
 
     /**
@@ -210,8 +215,8 @@ export default class Channel {
      * @protected
      * @param {String} data - Transmitted data
      * @param {String=} [type] - Type of package
-     * @returns {String} The final package
-     * @description Generates the final packet for transmission
+     * @returns {String} Package for transfer
+     * @description Generates the final packet for transmission.
      */
     _createPackage(data, type) {
         type = this._isString(type) ? type : 'ACK';
@@ -220,35 +225,69 @@ export default class Channel {
 
     /**
      * @protected
-     * @param {String} data - Source data
+     * @returns {Object} Serializer class
+     * @description Creates an instance of the serializer class.
+     */
+    _createSerializer() {
+        var serialization = new PSON.StaticPair();
+        return serialization;
+    }
+
+    /**
+     * @protected
+     * @param {String} data
      * @returns {String} Encrypted data
-     * @description Encrypts the source data
+     * @description Encrypts the source data.
      */
     _encryption(data) {
         if (this._cipher && this.sharedKey) {
-            var encrypted = this._cipher.update(data, 'utf8', 'hex');
-            return encrypted += this._cipher.final('hex');
+            data = this._cipher.update(data, 'utf8', 'hex');
+            data += this._cipher.final('hex');
         }
+
         return data;
     }
 
     /**
      * @protected
-     * @param {String} data - Encrypted data
+     * @param {String} data
      * @returns {String} Source data
-     * @description Decrypts the encrypted data
+     * @description Decrypts the encrypted data.
      */
     _decryption(data) {
         if (this._decipher && this.sharedKey) {
-            var decrypted = this._decipher.update(data, 'hex', 'utf8');
-            return decrypted += this._decipher.final('utf8');
+            data = this._decipher.update(data, 'hex', 'utf8');
+            data += this._decipher.final('utf8');
         }
+
         return data;
     }
 
     /**
      * @protected
-     * @returns {Object} Bunch of keys
+     * @param {*} data
+     * @returns {String} Compressed string
+     * @description Serializes the data.
+     */
+    _serialization(data) {
+        var result = this._serializer.encode(data);
+        return result.toString('hex');
+    }
+
+    /**
+     * @protected
+     * @param {String} data
+     * @returns {*} Source data
+     * @description Deserializes the data.
+     */
+    _deserialization(data) {
+        var buffer = Buffer.from(data, 'hex');
+        return this._serializer.decode(buffer);
+    }
+
+    /**
+     * @protected
+     * @returns {Object} ECDH instance
      * @description Utility for creating Elliptic Curve Diffie-Hellman (ECDH) key exchanges.
      * https://nodejs.org/api/crypto.html#crypto_class_diffiehellman
      */
@@ -258,8 +297,8 @@ export default class Channel {
 
     /**
      * @protected
-     * @returns {String} Public Key
-     * @description Public Key Generator
+     * @returns {String} Public key
+     * @description Create a public key.
      */
     _generatePublicKey() {
         return this._ecdh.generateKeys('base64', 'compressed');
@@ -268,8 +307,8 @@ export default class Channel {
     /**
      * @protected
      * @param {String} publicKey
-     * @returns {String} Shared Key
-     * @description Shared Key Generator
+     * @returns {String} Shared key
+     * @description Create a shared key.
      */
     _generateSharedKey(publicKey) {
         return this._ecdh.computeSecret(publicKey, 'base64', 'base64');
@@ -277,8 +316,8 @@ export default class Channel {
 
     /**
      * @protected
-     * @returns {String} UUID
-     * @description Generates an identifier
+     * @returns {String} Identifier
+     * @description Generates an identifier.
      */
     _generationUUID() {
         return uuid.v4();
@@ -287,32 +326,27 @@ export default class Channel {
     /**
      * @protected
      * @param {String} incomingKey
-     * @description Coordinates authorization data
+     * @description Register classes when connecting a channel.
      */
     _registration(incomingKey) {
-        /* The key was not transferred */
-        if (!incomingKey) {
-            this.sharedKey = null;
-            this._decipher = null;
-            this._cipher = null;
-        }
+        this.sharedKey = null;
+        this._decipher = null;
+        this._cipher = null;
 
-        /* The key has been transferred */
-        else {
+        if (incomingKey) {
             this.sharedKey = this._generateSharedKey(incomingKey);
             this._decipher = this._createDecipher(this.sharedKey);
             this._cipher = this._createCipher(this.sharedKey);
         }
 
-        /* Complete the connection setup */
         this.connected();
     }
 
     /**
      * @protected
-     * @param {String} value - The variable to check
+     * @param {String} value
      * @returns {Boolean} Result of checking
-     * @description Checks the type of the variable
+     * @description Checks the type of the variable.
      */
     _isFunction(value) {
         return typeof value === 'function';
@@ -320,9 +354,9 @@ export default class Channel {
 
     /**
      * @protected
-     * @param {String} value - The variable to check
+     * @param {String} value
      * @returns {Boolean} Result of checking
-     * @description Checks the type of the variable
+     * @description Checks the type of the variable.
      */
     _isString(value) {
         return typeof value === 'string';
