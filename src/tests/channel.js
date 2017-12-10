@@ -15,8 +15,8 @@ export default function () {
                     },
                     function onDisconnected(channel) {},
                     function gotPackage(channel, data) {},
-                    function sendPackage(channel, pkg) {
-                        channel.got(pkg);
+                    function sendPackage(channel, data) {
+                        channel.got(data);
                     }
                 );
 
@@ -32,8 +32,8 @@ export default function () {
                     },
                     function onDisconnected(channel) {},
                     function gotPackage(channel, data) {},
-                    function sendPackage(channel, pkg) {
-                        channel.got(pkg);
+                    function sendPackage(channel, data) {
+                        channel.got(data);
                     }
                 );
 
@@ -48,7 +48,7 @@ export default function () {
                         done();
                     },
                     function gotPackage(channel, data) {},
-                    function sendPackage(channel, pkg) {}
+                    function sendPackage(channel, data) {}
                 );
 
                 channel.disconnect();
@@ -69,8 +69,8 @@ export default function () {
                         assert.deepEqual(pkg, data);
                         done();
                     },
-                    function sendPackage(channel, pkg) {
-                        channel_2.got(pkg);
+                    function sendPackage(channel, data) {
+                        channel_2.got(data);
                     }
                 );
 
@@ -81,14 +81,15 @@ export default function () {
                     },
                     function onDisconnected(channel) {},
                     function gotPackage(channel, data) {
+                        assert.deepEqual(pkg, data);
                         channel.send(data);
                     },
-                    function sendPackage(channel, pkg) {
-                        channel_1.got(pkg);
+                    function sendPackage(channel, data) {
+                        channel_1.got(data);
                     }
                 );
 
-                /* Coordinate the channels */
+                /* Synchronization of channels */
                 channel_1.connect(true);
 
                 /* Data transfer */
@@ -108,8 +109,8 @@ export default function () {
                         assert.deepEqual(pkg, data);
                         done();
                     },
-                    function sendPackage(channel, pkg) {
-                        channel_2.got(pkg);
+                    function sendPackage(channel, data) {
+                        channel_2.got(data);
                     }
                 );
 
@@ -120,14 +121,15 @@ export default function () {
                     },
                     function onDisconnected(channel) {},
                     function gotPackage(channel, data) {
+                        assert.deepEqual(pkg, data);
                         channel.send(data);
                     },
-                    function sendPackage(channel, pkg) {
-                        channel_1.got(pkg);
+                    function sendPackage(channel, data) {
+                        channel_1.got(data);
                     }
                 );
 
-                /* Coordinate the channels */
+                /* Synchronization of channels */
                 channel_1.connect(false);
 
                 /* Data transfer */
