@@ -41,7 +41,10 @@ export default function () {
                 }
             );
 
+            /* Synchronization of channels */
             channel.connect(true);
+
+            /* Disable the channel */
             channel.disconnected();
         });
     });
