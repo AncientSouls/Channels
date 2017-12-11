@@ -77,9 +77,9 @@ export default class Channel {
         /**
          * @protected
          * @type {String}
-         * @description Authorization key.
+         * @description Encryption key.
          */
-        this.sharedKey = null;
+        this.encryptionKey = null;
     }
 
     /**
@@ -177,24 +177,24 @@ export default class Channel {
 
     /**
      * @protected
-     * @param {String} sharedKey
+     * @param {String} encryptionKey
      * @returns {String} Cipher class
      * @description Instances of the Cipher class are used to encrypt data.
      * https://nodejs.org/api/crypto.html#crypto_class_cipher
      */
-    _createCipher(sharedKey) {
-        return crypto.createCipher('aes192', sharedKey);
+    _createCipher(encryptionKey) {
+        return crypto.createCipher('aes192', encryptionKey);
     }
 
     /**
      * @protected
-     * @param {String} sharedKey
+     * @param {String} encryptionKey
      * @returns {String} Decipher class
      * @description Instances of the Decipher class are used to decrypt data.
      * https://nodejs.org/api/crypto.html#crypto_class_decipher
      */
-    _createDecipher(sharedKey) {
-        return crypto.createDecipher('aes192', sharedKey);
+    _createDecipher(encryptionKey) {
+        return crypto.createDecipher('aes192', encryptionKey);
     }
 
     /**
@@ -226,8 +226,8 @@ export default class Channel {
      * @description Encrypts the source data.
      */
     _encryption(data) {
-        if (this.sharedKey) {
-            var cipher = this._createCipher(this.sharedKey);
+        if (this.encryptionKey) {
+            var cipher = this._createCipher(this.encryptionKey);
             data = cipher.update(data, 'utf8', 'hex');
             data += cipher.final('hex');
         }
@@ -242,8 +242,8 @@ export default class Channel {
      * @description Decrypts the encrypted data.
      */
     _decryption(data) {
-        if (this.sharedKey) {
-            var decipher = this._createDecipher(this.sharedKey);
+        if (this.encryptionKey) {
+            var decipher = this._createDecipher(this.encryptionKey);
             data = decipher.update(data, 'hex', 'utf8');
             data += decipher.final('utf8');
         }
@@ -295,10 +295,10 @@ export default class Channel {
     /**
      * @protected
      * @param {String} publicKey
-     * @returns {String} Shared key
-     * @description Create a shared key.
+     * @returns {String} Encryption Key
+     * @description Create an encryption key.
      */
-    _generateSharedKey(publicKey) {
+    _generateEncryptionKey(publicKey) {
         return this._ecdh.computeSecret(publicKey, 'base64', 'base64');
     }
 
@@ -317,10 +317,10 @@ export default class Channel {
      * @description Register classes when connecting a channel.
      */
     _registration(incomingKey) {
-        this.sharedKey = null;
+        this.encryptionKey = null;
 
         if (incomingKey) {
-            this.sharedKey = this._generateSharedKey(incomingKey);
+            this.encryptionKey = this._generateEncryptionKey(incomingKey);
         }
 
         this.connected();

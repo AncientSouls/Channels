@@ -10,7 +10,7 @@ export default function () {
                 var channel = new Channel(
                     function onConnected(channel) {
                         assert.isTrue(channel.isConnected);
-                        assert.isString(channel.sharedKey);
+                        assert.isString(channel.encryptionKey);
                         done();
                     },
                     function onDisconnected(channel) {},
@@ -27,7 +27,7 @@ export default function () {
                 var channel = new Channel(
                     function onConnected(channel) {
                         assert.isTrue(channel.isConnected);
-                        assert.isNull(channel.sharedKey);
+                        assert.isNull(channel.encryptionKey);
                         done();
                     },
                     function onDisconnected(channel) {},
