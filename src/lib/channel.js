@@ -56,6 +56,13 @@ export default class Channel {
         /**
          * @protected
          * @type {String}
+         * @description Encryption algorithm.
+         */
+        this.algorithm = 'aes128';
+
+        /**
+         * @protected
+         * @type {String}
          * @description Channel identifier.
          */
         this.id = null;
@@ -177,24 +184,26 @@ export default class Channel {
 
     /**
      * @protected
+     * @param {String} algorithm
      * @param {String} encryptionKey
      * @returns {String} Cipher class
      * @description Instances of the Cipher class are used to encrypt data.
      * https://nodejs.org/api/crypto.html#crypto_class_cipher
      */
-    _createCipher(encryptionKey) {
-        return crypto.createCipher('aes128', encryptionKey);
+    _createCipher(algorithm, encryptionKey) {
+        return crypto.createCipher(algorithm, encryptionKey);
     }
 
     /**
      * @protected
+     * @param {String} algorithm
      * @param {String} encryptionKey
      * @returns {String} Decipher class
      * @description Instances of the Decipher class are used to decrypt data.
      * https://nodejs.org/api/crypto.html#crypto_class_decipher
      */
-    _createDecipher(encryptionKey) {
-        return crypto.createDecipher('aes128', encryptionKey);
+    _createDecipher(algorithm, encryptionKey) {
+        return crypto.createDecipher(algorithm, encryptionKey);
     }
 
     /**
@@ -227,7 +236,7 @@ export default class Channel {
      */
     _encryption(data) {
         if (this.encryptionKey) {
-            var cipher = this._createCipher(this.encryptionKey);
+            var cipher = this._createCipher(this.algorithm, this.encryptionKey);
             data = cipher.update(data, 'utf8', 'hex');
             data += cipher.final('hex');
         }
@@ -243,7 +252,7 @@ export default class Channel {
      */
     _decryption(data) {
         if (this.encryptionKey) {
-            var decipher = this._createDecipher(this.encryptionKey);
+            var decipher = this._createDecipher(this.algorithm, this.encryptionKey);
             data = decipher.update(data, 'hex', 'utf8');
             data += decipher.final('utf8');
         }
