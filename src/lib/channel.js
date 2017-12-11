@@ -42,20 +42,6 @@ export default class Channel {
         /**
          * @protected
          * @type {Object}
-         * @description Instances of the Cipher class.
-         */
-        this._cipher = null;
-
-        /**
-         * @protected
-         * @type {Object}
-         * @description Instances of the Decipher class.
-         */
-        this._decipher = null;
-
-        /**
-         * @protected
-         * @type {Object}
          * @description An instance of ECDH class keys.
          */
         this._ecdh = this._generateBunchKeys();
@@ -240,9 +226,10 @@ export default class Channel {
      * @description Encrypts the source data.
      */
     _encryption(data) {
-        if (this._cipher && this.sharedKey) {
-            data = this._cipher.update(data, 'utf8', 'hex');
-            data += this._cipher.final('hex');
+        if (this.sharedKey) {
+            var cipher = this._createCipher(this.sharedKey);
+            data = cipher.update(data, 'utf8', 'hex');
+            data += cipher.final('hex');
         }
 
         return data;
@@ -255,9 +242,10 @@ export default class Channel {
      * @description Decrypts the encrypted data.
      */
     _decryption(data) {
-        if (this._decipher && this.sharedKey) {
-            data = this._decipher.update(data, 'hex', 'utf8');
-            data += this._decipher.final('utf8');
+        if (this.sharedKey) {
+            var decipher = this._createDecipher(this.sharedKey);
+            data = decipher.update(data, 'hex', 'utf8');
+            data += decipher.final('utf8');
         }
 
         return data;
@@ -330,13 +318,9 @@ export default class Channel {
      */
     _registration(incomingKey) {
         this.sharedKey = null;
-        this._decipher = null;
-        this._cipher = null;
 
         if (incomingKey) {
             this.sharedKey = this._generateSharedKey(incomingKey);
-            this._decipher = this._createDecipher(this.sharedKey);
-            this._cipher = this._createCipher(this.sharedKey);
         }
 
         this.connected();
