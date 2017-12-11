@@ -91,7 +91,7 @@ export default class Channel {
         authorization = !!authorization;
 
         var key = '';
-        if (authorization) {
+        if (authorization && this.publicKey) {
             key = this.publicKey;
         }
 
