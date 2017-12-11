@@ -183,7 +183,7 @@ export default class Channel {
      * https://nodejs.org/api/crypto.html#crypto_class_cipher
      */
     _createCipher(encryptionKey) {
-        return crypto.createCipher('aes192', encryptionKey);
+        return crypto.createCipher('aes128', encryptionKey);
     }
 
     /**
@@ -194,7 +194,7 @@ export default class Channel {
      * https://nodejs.org/api/crypto.html#crypto_class_decipher
      */
     _createDecipher(encryptionKey) {
-        return crypto.createDecipher('aes192', encryptionKey);
+        return crypto.createDecipher('aes128', encryptionKey);
     }
 
     /**
