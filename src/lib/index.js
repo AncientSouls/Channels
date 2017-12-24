@@ -1,11 +1,16 @@
 /**
  * @module ancient-channels
  */
-
-import ChannelsManager from './manager';
 import Channel from './channel';
+import ChannelsManager from './manager';
+import {
+    connectLocalTransport,
+    createLocalTransport
+} from './tools';
 
 export {
+    Channel,
     ChannelsManager,
-    Channel
+    connectLocalTransport,
+    createLocalTransport
 };
