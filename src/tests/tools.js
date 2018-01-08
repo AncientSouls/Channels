@@ -1,22 +1,18 @@
 import { assert } from 'chai';
-import crypto from 'crypto';
+import { randomBytes } from 'crypto';
 
-import {
-    Channel,
-    connectLocalTransport,
-    createLocalTransport
-} from '../lib/index';
+import { Channel, createLocalTransport } from '../lib/index';
 
 export default function () {
     describe('Tools:', () => {
         it('connectLocalTransport() / createLocalTransport()', (done) => {
-            var pkg = { text: crypto.randomBytes(20).toString('hex') };
+            var data = { text: randomBytes(20).toString('hex') };
 
             var channel_1 = new Channel(
                 function onConnected(channel) {},
                 function onDisconnected(channel) {},
-                function gotPackage(channel, data) {
-                    assert.deepEqual(data, pkg);
+                function gotPackage(channel, pkg) {
+                    assert.deepEqual(pkg, data);
                     done();
                 },
                 function sendPackage(channel, data) {}
@@ -25,15 +21,14 @@ export default function () {
             var channel_2 = new Channel(
                 function onConnected(channel) {},
                 function onDisconnected(channel) {},
-                function gotPackage(channel, data) {
+                function gotPackage(channel, pkg) {
                     channel.send(data);
                 },
                 function sendPackage(channel, data) {}
             );
 
             createLocalTransport(channel_1, channel_2);
-            connectLocalTransport(channel_1, channel_2);
-            channel_1.send(pkg);
+            channel_1.send(data);
         });
     });
 }
