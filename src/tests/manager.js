@@ -4,48 +4,44 @@ import { Channel, ChannelsManager } from '../lib/index';
 
 export default function () {
     describe('Manager:', () => {
-        it('Channel connected', (done) => {
-            var channelsManager = new ChannelsManager(
-                Channel,
+        it('onConnected()', (done) => {
+            var channelsManager = new ChannelsManager(Channel,
                 function onConnected(channel) {
                     assert.equal(channelsManager.channels[channel.id], channel);
                     done();
                 },
-                function onDisconnected(channel) {},
-                function gotPackage(channel, data) {}
+                function onDisconnected(channel, message) {},
+                function gotPackage(channel, pkg) {}
             );
 
             var channel = channelsManager.new(
-                function sendPackage(channel, pkg) {
-                    channel.got(pkg);
+                function sendPackage(channel, data) {
+                    channel.got(data);
                 }
             );
 
-            channel.connect(true);
+            channel.connect();
         });
 
-        it('Channel disconnected', (done) => {
-            var channelsManager = new ChannelsManager(
-                Channel,
-                function onConnected(channel) {},
-                function onDisconnected(channel) {
+        it('onDisconnected()', (done) => {
+            var channelsManager = new ChannelsManager(Channel,
+                function onConnected(channel) {
+                    channel.disconnect();
+                },
+                function onDisconnected(channel, message) {
                     assert.isEmpty(channelsManager.channels);
                     done();
                 },
-                function gotPackage(channel, data) {}
+                function gotPackage(channel, pkg) {}
             );
 
             var channel = channelsManager.new(
-                function sendPackage(channel, pkg) {
-                    channel.got(pkg);
+                function sendPackage(channel, data) {
+                    channel.got(data);
                 }
             );
 
-            /* Synchronization of channels */
-            channel.connect(true);
-
-            /* Disable the channel */
-            channel.disconnected();
+            channel.connect();
         });
     });
 }
