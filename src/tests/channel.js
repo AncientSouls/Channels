@@ -7,7 +7,7 @@ export default function () {
     describe('Channel:', () => {
         it('connect() / connected()', (done) => {
             var channel = new Channel(
-                function onConnected(channel) {
+                function onConnected(channel, message) {
                     assert.isTrue(channel.isConnected);
                     assert.isString(channel.id);
                     done();
@@ -24,7 +24,7 @@ export default function () {
 
         it('disconnect() / disconnected()', (done) => {
             var channel = new Channel(
-                function onConnected(channel) {
+                function onConnected(channel, message) {
                     channel.disconnect();
                 },
                 function onDisconnected(channel, message) {
@@ -45,7 +45,7 @@ export default function () {
             var data = { text: randomBytes(20).toString('hex') };
 
             var channel_1 = new Channel(
-                function onConnected(channel) {
+                function onConnected(channel, message) {
                     channel.send(data);
                 },
                 function onDisconnected(channel, message) {},
@@ -59,7 +59,7 @@ export default function () {
             );
 
             var channel_2 = new Channel(
-                function onConnected(channel) {
+                function onConnected(channel, message) {
                     channel.connect();
                 },
                 function onDisconnected(channel, message) {},

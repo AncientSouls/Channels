@@ -6,7 +6,7 @@ export default function () {
     describe('Manager:', () => {
         it('onConnected()', (done) => {
             var channelsManager = new ChannelsManager(Channel,
-                function onConnected(channel) {
+                function onConnected(channel, message) {
                     assert.equal(channelsManager.channels[channel.id], channel);
                     done();
                 },
@@ -25,7 +25,7 @@ export default function () {
 
         it('onDisconnected()', (done) => {
             var channelsManager = new ChannelsManager(Channel,
-                function onConnected(channel) {
+                function onConnected(channel, message) {
                     channel.disconnect();
                 },
                 function onDisconnected(channel, message) {
