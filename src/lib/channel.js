@@ -1,4 +1,3 @@
-import crypto from 'crypto';
 import PSON from 'pson';
 import uuid from 'uuid';
 
@@ -42,23 +41,9 @@ export default class Channel {
         /**
          * @protected
          * @type {Object}
-         * @description An instance of ECDH class keys.
-         */
-        this._ecdh = this._generateBunchKeys();
-
-        /**
-         * @protected
-         * @type {Object}
          * @description An instance of the serializer class.
          */
         this._serializer = this._createSerializer();
-
-        /**
-         * @protected
-         * @type {String}
-         * @description Encryption algorithm.
-         */
-        this.algorithm = 'aes128';
 
         /**
          * @protected
@@ -73,149 +58,85 @@ export default class Channel {
          * @description Connection status.
          */
         this.isConnected = false;
-
-        /**
-         * @protected
-         * @type {String}
-         * @description Public key.
-         */
-        this.publicKey = this._generatePublicKey();
-
-        /**
-         * @protected
-         * @type {String}
-         * @description Encryption key.
-         */
-        this.encryptionKey = null;
     }
 
     /**
      * @protected
-     * @param {Boolean=} [authorization]
-     * @description Connecting the channel.
+     * @param {String} message - Message for the remote side
+     * @description Send the connection package.
      */
-    connect(authorization = true) {
-        authorization = !!authorization;
-
-        var key = '';
-        if (authorization && this.publicKey) {
-            key = this.publicKey;
-        }
-
-        var request = this._createPackage(key, 'SYN');
-        this.sendPackage(this, request);
-    }
-
-    /**
-     * @protected
-     * @description Change the status of the channel when connected.
-     */
-    connected() {
-        this.isConnected = true;
-        this.id = this._generationUUID();
-        if (this._isFunction(this.onConnected)) {
-            this.onConnected(this);
-        }
-    }
-
-    /**
-     * @protected
-     * @description Turn off the channel.
-     */
-    disconnect() {
-        var request = this._createPackage('', 'RST');
-        this.sendPackage(this, request);
-        this.disconnected();
-    }
-
-    /**
-     * @protected
-     * @description Change the status of the channel when disconnected.
-     */
-    disconnected() {
-        this.isConnected = false;
-        if (this._isFunction(this.onDisconnected)) {
-            this.onDisconnected(this);
-        }
-    }
-
-    /**
-     * @protected
-     * @param {String} pkg - Received package
-     * @description Processing incoming packets.
-     */
-    got(pkg) {
-        if (!this._isString(pkg)) {
-            throw new TypeError('\'pkg\' is not a string');
-        }
-
-        var type = pkg.slice(0, 3);
-        var data = pkg.slice(3);
-
-        /* Package end of communication */
-        if (type == 'RST') {
-            this.disconnected();
-        }
-
-        /* Authorization package */
-        else if (type == 'SYN') {
-            this._registration(data);
-        }
-
-        /* Package with data */
-        else if (type == 'ACK') {
-            data = this._decryption(data);
-            data = this._deserialization(data);
-            this.gotPackage(this, data);
-        }
-    }
-
-    /**
-     * @protected
-     * @param {*} pkg - Submitted data
-     * @description Generates and sends the packet.
-     */
-    send(data) {
-        data = this._serialization(data);
-        data = this._encryption(data);
-        var pkg = this._createPackage(data);
+    connect(message) {
+        this.id = this._getIdentifier();
+        var pkg = this._packData(message, 'SYN');
         this.sendPackage(this, pkg);
     }
 
     /**
      * @protected
-     * @param {String} algorithm
-     * @param {String} encryptionKey
-     * @returns {String} Cipher class
-     * @description Instances of the Cipher class are used to encrypt data.
-     * https://nodejs.org/api/crypto.html#crypto_class_cipher
+     * @param {String} message - Message from the remote side
+     * @description Change the status of the channel when connected.
      */
-    _createCipher(algorithm, encryptionKey) {
-        return crypto.createCipher(algorithm, encryptionKey);
+    connected(message) {
+        this.isConnected = true;
+        this.id = this._getIdentifier();
+        if (this._isFunction(this.onConnected)) {
+            this.onConnected(this, message);
+        }
     }
 
     /**
      * @protected
-     * @param {String} algorithm
-     * @param {String} encryptionKey
-     * @returns {String} Decipher class
-     * @description Instances of the Decipher class are used to decrypt data.
-     * https://nodejs.org/api/crypto.html#crypto_class_decipher
+     * @param {String} message - Message for the remote side
+     * @description Send a shutdown packet.
      */
-    _createDecipher(algorithm, encryptionKey) {
-        return crypto.createDecipher(algorithm, encryptionKey);
+    disconnect(message) {
+        var pkg = this._packData(message, 'RST');
+        this.sendPackage(this, pkg);
     }
 
     /**
      * @protected
-     * @param {String} data - Transmitted data
-     * @param {String=} [type] - Type of package
-     * @returns {String} Package for transfer
-     * @description Generates the final packet for transmission.
+     * @param {String} message - Message from the remote side
+     * @description Change the status of the channel when disconnected.
      */
-    _createPackage(data, type) {
-        type = this._isString(type) ? type : 'ACK';
-        return type.concat(data);
+    disconnected(message) {
+        this.isConnected = false;
+        if (this._isFunction(this.onDisconnected)) {
+            this.onDisconnected(this, message);
+        }
+    }
+
+    /**
+     * @protected
+     * @param {String} request - Submitted data
+     * @description Process the submitted data.
+     */
+    got(request) {
+        if (!this._isString(request)) {
+            throw new TypeError('\'request\' is not a string');
+        }
+
+        var pkg = this._unpackData(request);
+
+        if (pkg.type == 'RST') {
+            this.disconnected(pkg.data);
+        }
+        else if (pkg.type == 'SYN') {
+            this.connected(pkg.data);
+        }
+        else if (pkg.type == 'ACK') {
+            this.gotPackage(this, pkg.data);
+        }
+    }
+
+    /**
+     * @protected
+     * @param {*} data - Submitted data
+     * @description Generates and sends the packet.
+     */
+    send(data) {
+        var pkg = this._packData(data, 'ACK');
+        this.sendPackage(this, pkg);
     }
 
     /**
@@ -230,34 +151,43 @@ export default class Channel {
 
     /**
      * @protected
-     * @param {String} data
-     * @returns {String} Encrypted data
-     * @description Encrypts the source data.
+     * @returns {String} Identifier
+     * @description Generates an identifier.
      */
-    _encryption(data) {
-        if (this.encryptionKey) {
-            var cipher = this._createCipher(this.algorithm, this.encryptionKey);
-            data = cipher.update(data, 'utf8', 'hex');
-            data += cipher.final('hex');
-        }
-
-        return data;
+    _generationUUID() {
+        return uuid.v4();
     }
 
     /**
      * @protected
-     * @param {String} data
-     * @returns {String} Source data
-     * @description Decrypts the encrypted data.
+     * @returns {String} Identifier
+     * @description Create a new one or return an existing identifier.
      */
-    _decryption(data) {
-        if (this.encryptionKey) {
-            var decipher = this._createDecipher(this.algorithm, this.encryptionKey);
-            data = decipher.update(data, 'hex', 'utf8');
-            data += decipher.final('utf8');
-        }
+    _getIdentifier() {
+        var identifier = this._isString(this.id) ? this.id : this._generationUUID();
+        return identifier;
+    }
 
-        return data;
+    /**
+     * @protected
+     * @param {*} data - Transmitted data
+     * @param {String} type - Type of package
+     * @returns {String} Package for transfer
+     * @description Compresses the data from the request.
+     */
+    _packData(data, type) {
+        type = this._isString(type) ? type : 'ACK';
+        return this._serialization({ type, data });
+    }
+
+    /**
+     * @protected
+     * @param {String} request - Submitted data
+     * @returns {Object} Source package
+     * @description Decompresses the data from the request.
+     */
+    _unpackData(request) {
+        return this._deserialization(request);
     }
 
     /**
@@ -280,59 +210,6 @@ export default class Channel {
     _deserialization(data) {
         var buffer = Buffer.from(data, 'hex');
         return this._serializer.decode(buffer);
-    }
-
-    /**
-     * @protected
-     * @returns {Object} ECDH instance
-     * @description Utility for creating Elliptic Curve Diffie-Hellman (ECDH) key exchanges.
-     * https://nodejs.org/api/crypto.html#crypto_class_diffiehellman
-     */
-    _generateBunchKeys() {
-        return crypto.createECDH('secp256k1');
-    }
-
-    /**
-     * @protected
-     * @returns {String} Public key
-     * @description Create a public key.
-     */
-    _generatePublicKey() {
-        return this._ecdh.generateKeys('base64', 'compressed');
-    }
-
-    /**
-     * @protected
-     * @param {String} publicKey
-     * @returns {String} Encryption Key
-     * @description Create an encryption key.
-     */
-    _generateEncryptionKey(publicKey) {
-        return this._ecdh.computeSecret(publicKey, 'base64', 'base64');
-    }
-
-    /**
-     * @protected
-     * @returns {String} Identifier
-     * @description Generates an identifier.
-     */
-    _generationUUID() {
-        return uuid.v4();
-    }
-
-    /**
-     * @protected
-     * @param {String} incomingKey
-     * @description Register classes when connecting a channel.
-     */
-    _registration(incomingKey) {
-        this.encryptionKey = null;
-
-        if (incomingKey) {
-            this.encryptionKey = this._generateEncryptionKey(incomingKey);
-        }
-
-        this.connected();
     }
 
     /**
