@@ -3,14 +3,10 @@
  */
 import Channel from './channel';
 import ChannelsManager from './manager';
-import {
-    connectLocalTransport,
-    createLocalTransport
-} from './tools';
+import { createLocalTransport } from './tools';
 
 export {
     Channel,
     ChannelsManager,
-    connectLocalTransport,
     createLocalTransport
 };

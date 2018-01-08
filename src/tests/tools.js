@@ -5,7 +5,7 @@ import { Channel, createLocalTransport } from '../lib/index';
 
 export default function () {
     describe('Tools:', () => {
-        it('connectLocalTransport() / createLocalTransport()', (done) => {
+        it('createLocalTransport()', (done) => {
             var data = { text: randomBytes(20).toString('hex') };
 
             var channel_1 = new Channel(
