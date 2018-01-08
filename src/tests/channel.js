@@ -1,140 +1,77 @@
 import { assert } from 'chai';
-import crypto from 'crypto';
+import { randomBytes } from 'crypto';
 
 import { Channel } from '../lib/index';
 
 export default function () {
     describe('Channel:', () => {
-        describe('Connect / Disconnect:', () => {
-            it('connect(true) / connected', (done) => {
-                var channel = new Channel(
-                    function onConnected(channel) {
-                        assert.isTrue(channel.isConnected);
-                        assert.isString(channel.encryptionKey);
-                        done();
-                    },
-                    function onDisconnected(channel) {},
-                    function gotPackage(channel, data) {},
-                    function sendPackage(channel, data) {
-                        channel.got(data);
-                    }
-                );
+        it('connect() / connected()', (done) => {
+            var channel = new Channel(
+                function onConnected(channel) {
+                    assert.isTrue(channel.isConnected);
+                    assert.isString(channel.id);
+                    done();
+                },
+                function onDisconnected(channel, message) {},
+                function gotPackage(channel, pkg) {},
+                function sendPackage(channel, data) {
+                    channel.got(data);
+                }
+            );
 
-                channel.connect(true);
-            });
-
-            it('connect(false) / connected', (done) => {
-                var channel = new Channel(
-                    function onConnected(channel) {
-                        assert.isTrue(channel.isConnected);
-                        assert.isNull(channel.encryptionKey);
-                        done();
-                    },
-                    function onDisconnected(channel) {},
-                    function gotPackage(channel, data) {},
-                    function sendPackage(channel, data) {
-                        channel.got(data);
-                    }
-                );
-
-                channel.connect(false);
-            });
-
-            it('disconnect() / disconnected', (done) => {
-                var channel = new Channel(
-                    function onConnected(channel) {},
-                    function onDisconnected(channel) {
-                        assert.isFalse(channel.isConnected);
-                        done();
-                    },
-                    function gotPackage(channel, data) {},
-                    function sendPackage(channel, data) {}
-                );
-
-                channel.disconnect();
-            });
+            channel.connect();
         });
 
-        describe('Sending / Receiving:', () => {
-            it('Send encrypted', (done) => {
-                var pkg = {
-                    text: crypto.randomBytes(20).toString('hex')
-                };
+        it('disconnect() / disconnected()', (done) => {
+            var channel = new Channel(
+                function onConnected(channel) {
+                    channel.disconnect();
+                },
+                function onDisconnected(channel, message) {
+                    assert.isFalse(channel.isConnected);
+                    assert.isString(channel.id);
+                    done();
+                },
+                function gotPackage(channel, pkg) {},
+                function sendPackage(channel, data) {
+                    channel.got(data);
+                }
+            );
 
-                /* First channel */
-                var channel_1 = new Channel(
-                    function onConnected(channel) {},
-                    function onDisconnected(channel) {},
-                    function gotPackage(channel, data) {
-                        assert.deepEqual(pkg, data);
-                        done();
-                    },
-                    function sendPackage(channel, data) {
-                        channel_2.got(data);
-                    }
-                );
+            channel.connect();
+        });
 
-                /* Second channel */
-                var channel_2 = new Channel(
-                    function onConnected(channel) {
-                        channel.connect(true);
-                    },
-                    function onDisconnected(channel) {},
-                    function gotPackage(channel, data) {
-                        assert.deepEqual(pkg, data);
-                        channel.send(data);
-                    },
-                    function sendPackage(channel, data) {
-                        channel_1.got(data);
-                    }
-                );
+        it('send() / got()', (done) => {
+            var data = { text: randomBytes(20).toString('hex') };
 
-                /* Synchronization of channels */
-                channel_1.connect(true);
+            var channel_1 = new Channel(
+                function onConnected(channel) {
+                    channel.send(data);
+                },
+                function onDisconnected(channel, message) {},
+                function gotPackage(channel, pkg) {
+                    assert.deepEqual(pkg, data);
+                    done();
+                },
+                function sendPackage(channel, data) {
+                    channel_2.got(data);
+                }
+            );
 
-                /* Data transfer */
-                channel_1.send(pkg);
-            });
+            var channel_2 = new Channel(
+                function onConnected(channel) {
+                    channel.connect();
+                },
+                function onDisconnected(channel, message) {},
+                function gotPackage(channel, pkg) {
+                    channel.send(pkg);
+                },
+                function sendPackage(channel, data) {
+                    channel_1.got(data);
+                }
+            );
 
-            it('Send unencrypted', (done) => {
-                var pkg = {
-                    text: crypto.randomBytes(20).toString('hex')
-                };
-
-                /* First channel */
-                var channel_1 = new Channel(
-                    function onConnected(channel) {},
-                    function onDisconnected(channel) {},
-                    function gotPackage(channel, data) {
-                        assert.deepEqual(pkg, data);
-                        done();
-                    },
-                    function sendPackage(channel, data) {
-                        channel_2.got(data);
-                    }
-                );
-
-                /* Second channel */
-                var channel_2 = new Channel(
-                    function onConnected(channel) {
-                        channel.connect(false);
-                    },
-                    function onDisconnected(channel) {},
-                    function gotPackage(channel, data) {
-                        assert.deepEqual(pkg, data);
-                        channel.send(data);
-                    },
-                    function sendPackage(channel, data) {
-                        channel_1.got(data);
-                    }
-                );
-
-                /* Synchronization of channels */
-                channel_1.connect(false);
-
-                /* Data transfer */
-                channel_1.send(pkg);
-            });
+            channel_1.connect();
         });
     });
 }
