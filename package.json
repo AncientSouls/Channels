@@ -1,6 +1,6 @@
 {
     "name": "ancient-channels",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Constructor of communication channel with universal API.",
     "main": "lib/index.js",
     "scripts": {
