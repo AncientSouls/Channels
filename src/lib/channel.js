@@ -1,4 +1,3 @@
-import PSON from 'pson';
 import uuid from 'uuid';
 
 /**
@@ -145,8 +144,7 @@ export default class Channel {
      * @description Creates an instance of the serializer class.
      */
     _createSerializer() {
-        var serialization = new PSON.StaticPair();
-        return serialization;
+        return JSON;
     }
 
     /**
@@ -197,8 +195,7 @@ export default class Channel {
      * @description Serializes the data.
      */
     _serialization(data) {
-        var result = this._serializer.encode(data);
-        return result.toString('hex');
+        return this._serializer.stringify(data);
     }
 
     /**
@@ -208,8 +205,7 @@ export default class Channel {
      * @description Deserializes the data.
      */
     _deserialization(data) {
-        var buffer = Buffer.from(data, 'hex');
-        return this._serializer.decode(buffer);
+        return this._serializer.parse(data);
     }
 
     /**

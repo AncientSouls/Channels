@@ -30,7 +30,6 @@
         "mocha": "^4.0.1"
     },
     "dependencies": {
-        "pson": "^2.0.0",
         "uuid": "^3.1.0"
     }
 }
