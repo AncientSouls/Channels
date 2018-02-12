@@ -50,7 +50,8 @@ export default function () {
                 },
                 function onDisconnected(channel, message) {},
                 function gotPackage(channel, pkg) {
-                    assert.deepEqual(pkg, data);
+                    assert.equal(pkg.id, channel_2.id);
+                    assert.deepEqual(pkg.request, data);
                     done();
                 },
                 function sendPackage(channel, data) {
@@ -64,7 +65,7 @@ export default function () {
                 },
                 function onDisconnected(channel, message) {},
                 function gotPackage(channel, pkg) {
-                    channel.send(pkg);
+                    channel.send(pkg.request);
                 },
                 function sendPackage(channel, data) {
                     channel_1.got(data);
