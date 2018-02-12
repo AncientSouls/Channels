@@ -12,7 +12,8 @@ export default function () {
                 function onConnected(channel) {},
                 function onDisconnected(channel) {},
                 function gotPackage(channel, pkg) {
-                    assert.deepEqual(pkg, data);
+                    assert.equal(channel_2.id, pkg.id);
+                    assert.deepEqual(pkg.request, data);
                     done();
                 },
                 function sendPackage(channel, data) {}
