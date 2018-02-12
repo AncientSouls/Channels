@@ -81,8 +81,8 @@ export default class Channel {
     connected(request) {
         request = request || {
             id: this._getIdentifier(),
-            request: null,
-            warning: 'Data is not received, random data is used.'
+            warning: 'Data is not received, random data is used.',
+            request: null
         };
 
         this.isConnected = true;
@@ -134,25 +134,18 @@ export default class Channel {
             this.connected(pkg.data);
         }
         else if (pkg.type == 'ACK') {
-            this.gotPackage(this, {
-                id: pkg.data.id,
-                request: pkg.data.data,
-                warning: pkg.data.warning
-            });
+            this.gotPackage(this, pkg.data);
         }
     }
 
     /**
      * @protected
-     * @param {*} data - Submitted data
+     * @param {Object} data - Submitted data
+     * @param {String} message - Message for the remote side
      * @description Generates and sends the packet.
      */
-    send(data) {
-        var pkg = this._packData({
-            id: this.id,
-            warning: null,
-            data
-        }, 'ACK');
+    send(data, message) {
+        var pkg = this._packData({ id: this.id, request: data, warning: message }, 'ACK');
         this.sendPackage(this, pkg);
     }
 
