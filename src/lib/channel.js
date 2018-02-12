@@ -99,7 +99,7 @@ export default class Channel {
      * @description Send a shutdown packet.
      */
     disconnect(message) {
-        var pkg = this._packData(message, 'RST');
+        var pkg = this._packData({ id: this.id, request: null, warning: message }, 'RST');
         this.sendPackage(this, pkg);
     }
 
@@ -128,7 +128,7 @@ export default class Channel {
         var pkg = this._unpackData(request);
 
         if (pkg.type == 'RST') {
-            this.disconnected(pkg.data);
+            this.disconnected(pkg.data.warning);
         }
         else if (pkg.type == 'SYN') {
             this.connected(pkg.data);
