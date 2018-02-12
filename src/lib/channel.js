@@ -66,20 +66,30 @@ export default class Channel {
      */
     connect(message) {
         this.id = this._getIdentifier();
-        var pkg = this._packData(message, 'SYN');
+        var pkg = this._packData({ id: this.id, request: null, warning: message }, 'SYN');
         this.sendPackage(this, pkg);
     }
 
     /**
      * @protected
-     * @param {String} message - Message from the remote side
+     * @param {Object} request - Data packet for authorization
+     * @param {String} request.id - New channel id
+     * @param {String} request.request - Public key of authorization
+     * @param {String} request.warning - Information message
      * @description Change the status of the channel when connected.
      */
-    connected(message) {
+    connected(request) {
+        request = request || {
+            id: this._getIdentifier(),
+            request: null,
+            warning: 'Data is not received, random data is used.'
+        };
+
         this.isConnected = true;
-        this.id = this._getIdentifier();
+        this.id = request.id;
+
         if (this._isFunction(this.onConnected)) {
-            this.onConnected(this, message);
+            this.onConnected(this, request.warning);
         }
     }
 
