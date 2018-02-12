@@ -124,7 +124,11 @@ export default class Channel {
             this.connected(pkg.data);
         }
         else if (pkg.type == 'ACK') {
-            this.gotPackage(this, pkg.data);
+            this.gotPackage(this, {
+                id: pkg.data.id,
+                request: pkg.data.data,
+                warning: pkg.data.warning
+            });
         }
     }
 
@@ -134,7 +138,11 @@ export default class Channel {
      * @description Generates and sends the packet.
      */
     send(data) {
-        var pkg = this._packData(data, 'ACK');
+        var pkg = this._packData({
+            id: this.id,
+            warning: null,
+            data
+        }, 'ACK');
         this.sendPackage(this, pkg);
     }
 
