@@ -12,8 +12,8 @@ function createLocalTransport(channel_1, channel_2) {
         channel_1.got(pkg);
     };
 
-    channel_1.connected();
-    channel_2.connected();
+    channel_1.connect();
+    channel_2.connect();
 }
 
 export {
