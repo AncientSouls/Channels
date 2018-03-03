@@ -1,7 +1,6 @@
 "use strict";
 exports.__esModule = true;
 require('source-map-support').install();
-require("mocha");
 var channel_1 = require("./channel");
 var channels_manager_1 = require("./channels-manager");
 var create_local_transport_1 = require("./create-local-transport");

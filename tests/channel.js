@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-require("mocha");
 var chai_1 = require("chai");
 var sinon = require("sinon");
 var channel_1 = require("../lib/channel");

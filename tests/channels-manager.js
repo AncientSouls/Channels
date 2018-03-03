@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-require("mocha");
 var chai_1 = require("chai");
 var channels_manager_1 = require("../lib/channels-manager");
 function default_1() {

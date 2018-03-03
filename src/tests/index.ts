@@ -1,5 +1,4 @@
 require('source-map-support').install();
-import 'mocha';
 
 import channel from './channel';
 import channelsManager from './channels-manager';
