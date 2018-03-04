@@ -184,7 +184,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[isConnected](../interfaces/ichannel.md#isconnected)*
 
-*Defined in [lib/channel.ts:49](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L49)*
+*Defined in [channel.ts:49](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L49)*
 
 
 
@@ -220,7 +220,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[connect](../interfaces/ichannel.md#connect)*
 
-*Defined in [lib/channel.ts:50](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L50)*
+*Defined in [channel.ts:50](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L50)*
 
 
 
@@ -252,7 +252,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[connected](../interfaces/ichannel.md#connected)*
 
-*Defined in [lib/channel.ts:51](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L51)*
+*Defined in [channel.ts:51](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L51)*
 
 
 
@@ -285,7 +285,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[deserialize](../interfaces/ichannel.md#deserialize)*
 
-*Defined in [lib/channel.ts:61](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L61)*
+*Defined in [channel.ts:61](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L61)*
 
 
 
@@ -317,7 +317,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[disconnect](../interfaces/ichannel.md#disconnect)*
 
-*Defined in [lib/channel.ts:52](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L52)*
+*Defined in [channel.ts:52](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L52)*
 
 
 
@@ -349,7 +349,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[disconnected](../interfaces/ichannel.md#disconnected)*
 
-*Defined in [lib/channel.ts:53](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L53)*
+*Defined in [channel.ts:53](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L53)*
 
 
 
@@ -418,7 +418,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[got](../interfaces/ichannel.md#got)*
 
-*Defined in [lib/channel.ts:55](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L55)*
+*Defined in [channel.ts:55](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L55)*
 
 
 
@@ -450,7 +450,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[gotPkg](../interfaces/ichannel.md#gotpkg)*
 
-*Defined in [lib/channel.ts:54](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L54)*
+*Defined in [channel.ts:54](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L54)*
 
 
 
@@ -591,7 +591,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[pack](../interfaces/ichannel.md#pack)*
 
-*Defined in [lib/channel.ts:58](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L58)*
+*Defined in [channel.ts:58](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L58)*
 
 
 
@@ -623,7 +623,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[send](../interfaces/ichannel.md#send)*
 
-*Defined in [lib/channel.ts:56](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L56)*
+*Defined in [channel.ts:56](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L56)*
 
 
 
@@ -655,7 +655,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[sendMsg](../interfaces/ichannel.md#sendmsg)*
 
-*Defined in [lib/channel.ts:57](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L57)*
+*Defined in [channel.ts:57](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L57)*
 
 
 
@@ -688,7 +688,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[serialize](../interfaces/ichannel.md#serialize)*
 
-*Defined in [lib/channel.ts:60](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L60)*
+*Defined in [channel.ts:60](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L60)*
 
 
 
@@ -720,7 +720,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[unpack](../interfaces/ichannel.md#unpack)*
 
-*Defined in [lib/channel.ts:59](https://github.com/AncientSouls/Channels/blob/2911113/src/lib/channel.ts#L59)*
+*Defined in [channel.ts:59](https://github.com/AncientSouls/Channels/blob/8ab703e/src/lib/channel.ts#L59)*
 
 
 
