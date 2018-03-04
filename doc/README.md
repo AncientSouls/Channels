@@ -11,8 +11,6 @@
 
 ### Classes
 
-* [Channel](classes/channel.md)
-* [ChannelsManager](classes/channelsmanager.md)
 
 
 ### Interfaces
@@ -56,7 +54,7 @@
 
 **Τ TChannel**:  *[IChannel](interfaces/ichannel.md)[IChannelEventsList](interfaces/ichanneleventslist.md)* 
 
-*Defined in [lib/channel.ts:12](https://github.com/AncientSouls/Channels/blob/34662c9/src/lib/channel.ts#L12)*
+*Defined in [lib/channel.ts:12](https://github.com/AncientSouls/Channels/blob/c946d43/src/lib/channel.ts#L12)*
 
 
 
@@ -70,7 +68,7 @@ ___
 
 **Τ TChannelsManager**:  *[IChannelsManager](interfaces/ichannelsmanager.md)[TChannel](#tchannel), [IChannelsManagerEventsList](interfaces/ichannelsmanagereventslist.md)* 
 
-*Defined in [lib/channels-manager.ts:22](https://github.com/AncientSouls/Channels/blob/34662c9/src/lib/channels-manager.ts#L22)*
+*Defined in [lib/channels-manager.ts:22](https://github.com/AncientSouls/Channels/blob/c946d43/src/lib/channels-manager.ts#L22)*
 
 
 
@@ -84,7 +82,7 @@ ___
 
 **Τ TMsg**:  *`string`* 
 
-*Defined in [lib/channel.ts:29](https://github.com/AncientSouls/Channels/blob/34662c9/src/lib/channel.ts#L29)*
+*Defined in [lib/channel.ts:29](https://github.com/AncientSouls/Channels/blob/c946d43/src/lib/channel.ts#L29)*
 
 
 
@@ -100,7 +98,7 @@ ___
 
 **●  MixedChannel**:  *`TClass`.<[IChannel](interfaces/ichannel.md)[IChannelEventsList](interfaces/ichanneleventslist.md)>*  =  mixin(Node)
 
-*Defined in [lib/channel.ts:153](https://github.com/AncientSouls/Channels/blob/34662c9/src/lib/channel.ts#L153)*
+*Defined in [lib/channel.ts:153](https://github.com/AncientSouls/Channels/blob/c946d43/src/lib/channel.ts#L153)*
 
 
 
@@ -114,7 +112,7 @@ ___
 
 **●  MixedChannelsManager**:  *`TClass`.<[TChannelsManager](#tchannelsmanager)>*  =  mixin(Manager)
 
-*Defined in [lib/channels-manager.ts:51](https://github.com/AncientSouls/Channels/blob/34662c9/src/lib/channels-manager.ts#L51)*
+*Defined in [lib/channels-manager.ts:51](https://github.com/AncientSouls/Channels/blob/c946d43/src/lib/channels-manager.ts#L51)*
 
 
 
@@ -132,7 +130,7 @@ ___
 
 
 
-*Defined in [lib/create-local-transport.ts:6](https://github.com/AncientSouls/Channels/blob/34662c9/src/lib/create-local-transport.ts#L6)*
+*Defined in [lib/create-local-transport.ts:6](https://github.com/AncientSouls/Channels/blob/c946d43/src/lib/create-local-transport.ts#L6)*
 
 
 
@@ -163,7 +161,7 @@ ___
 
 
 
-*Defined in [tests/channel.ts:6](https://github.com/AncientSouls/Channels/blob/34662c9/src/tests/channel.ts#L6)*
+*Defined in [tests/channel.ts:6](https://github.com/AncientSouls/Channels/blob/c946d43/src/tests/channel.ts#L6)*
 
 
 
@@ -185,7 +183,7 @@ ___
 
 
 
-*Defined in [lib/channel.ts:64](https://github.com/AncientSouls/Channels/blob/34662c9/src/lib/channel.ts#L64)*
+*Defined in [lib/channel.ts:64](https://github.com/AncientSouls/Channels/blob/c946d43/src/lib/channel.ts#L64)*
 
 
 
