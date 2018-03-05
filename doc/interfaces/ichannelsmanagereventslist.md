@@ -30,7 +30,7 @@
 
 *Inherited from IManagerEventsList.added*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/manager.d.ts:9*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/manager.d.ts:9*
 
 
 
@@ -44,7 +44,7 @@ ___
 
 **●  connect**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:29](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channels-manager.ts#L29)*
+*Defined in [channels-manager.ts:29](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channels-manager.ts#L29)*
 
 
 
@@ -58,7 +58,7 @@ ___
 
 **●  connected**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:30](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channels-manager.ts#L30)*
+*Defined in [channels-manager.ts:30](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channels-manager.ts#L30)*
 
 
 
@@ -74,7 +74,7 @@ ___
 
 *Inherited from INodeEventsList.destroyed*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:8*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:8*
 
 
 
@@ -88,7 +88,7 @@ ___
 
 **●  disconnect**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:31](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channels-manager.ts#L31)*
+*Defined in [channels-manager.ts:31](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channels-manager.ts#L31)*
 
 
 
@@ -102,7 +102,7 @@ ___
 
 **●  disconnected**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:32](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channels-manager.ts#L32)*
+*Defined in [channels-manager.ts:32](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channels-manager.ts#L32)*
 
 
 
@@ -116,7 +116,7 @@ ___
 
 **●  got**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:33](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channels-manager.ts#L33)*
+*Defined in [channels-manager.ts:33](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channels-manager.ts#L33)*
 
 
 
@@ -130,7 +130,7 @@ ___
 
 **●  pack**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:35](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channels-manager.ts#L35)*
+*Defined in [channels-manager.ts:35](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channels-manager.ts#L35)*
 
 
 
@@ -146,7 +146,7 @@ ___
 
 *Inherited from IManagerEventsList.removed*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/manager.d.ts:10*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/manager.d.ts:10*
 
 
 
@@ -160,7 +160,7 @@ ___
 
 **●  send**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:34](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channels-manager.ts#L34)*
+*Defined in [channels-manager.ts:34](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channels-manager.ts#L34)*
 
 
 
@@ -174,7 +174,7 @@ ___
 
 **●  unpack**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:36](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channels-manager.ts#L36)*
+*Defined in [channels-manager.ts:36](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channels-manager.ts#L36)*
 
 
 

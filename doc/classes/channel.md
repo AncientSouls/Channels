@@ -70,7 +70,7 @@
 
 *Inherited from INode.__new*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:11*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:11*
 
 
 
@@ -98,7 +98,7 @@
 
 *Inherited from INode.destroy*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:15*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:15*
 
 
 #### Type declaration
@@ -125,7 +125,7 @@ ___
 
 *Inherited from IEvents.emitter*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:5*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:5*
 
 
 
@@ -141,7 +141,7 @@ ___
 
 *Inherited from INode.generateId*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:13*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:13*
 
 
 #### Type declaration
@@ -168,7 +168,7 @@ ___
 
 *Inherited from INode.id*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:11*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:11*
 
 
 
@@ -184,7 +184,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[isConnected](../interfaces/ichannel.md#isconnected)*
 
-*Defined in [channel.ts:49](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L49)*
+*Defined in [channel.ts:49](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L49)*
 
 
 
@@ -200,7 +200,7 @@ ___
 
 *Inherited from INode.isDestroyed*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:14*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/node.d.ts:14*
 
 
 
@@ -220,7 +220,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[connect](../interfaces/ichannel.md#connect)*
 
-*Defined in [channel.ts:50](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L50)*
+*Defined in [channel.ts:50](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L50)*
 
 
 
@@ -252,7 +252,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[connected](../interfaces/ichannel.md#connected)*
 
-*Defined in [channel.ts:51](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L51)*
+*Defined in [channel.ts:51](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L51)*
 
 
 
@@ -285,7 +285,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[deserialize](../interfaces/ichannel.md#deserialize)*
 
-*Defined in [channel.ts:61](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L61)*
+*Defined in [channel.ts:61](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L61)*
 
 
 
@@ -317,7 +317,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[disconnect](../interfaces/ichannel.md#disconnect)*
 
-*Defined in [channel.ts:52](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L52)*
+*Defined in [channel.ts:52](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L52)*
 
 
 
@@ -349,7 +349,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[disconnected](../interfaces/ichannel.md#disconnected)*
 
-*Defined in [channel.ts:53](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L53)*
+*Defined in [channel.ts:53](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L53)*
 
 
 
@@ -382,7 +382,7 @@ ___
 
 *Inherited from IEvents.emit*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:6*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:6*
 
 
 
@@ -418,7 +418,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[got](../interfaces/ichannel.md#got)*
 
-*Defined in [channel.ts:55](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L55)*
+*Defined in [channel.ts:55](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L55)*
 
 
 
@@ -450,7 +450,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[gotPkg](../interfaces/ichannel.md#gotpkg)*
 
-*Defined in [channel.ts:54](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L54)*
+*Defined in [channel.ts:54](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L54)*
 
 
 
@@ -483,7 +483,7 @@ ___
 
 *Inherited from IEvents.off*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:9*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:9*
 
 
 
@@ -519,7 +519,7 @@ ___
 
 *Inherited from IEvents.on*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:7*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:7*
 
 
 
@@ -555,7 +555,7 @@ ___
 
 *Inherited from IEvents.once*
 
-*Defined in /home/ubuntu/workspace/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:8*
+*Defined in /home/ivansglazunov/dev/packages/ancient-channels/node_modules/ancient-mixins/lib/events.d.ts:8*
 
 
 
@@ -591,7 +591,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[pack](../interfaces/ichannel.md#pack)*
 
-*Defined in [channel.ts:58](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L58)*
+*Defined in [channel.ts:58](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L58)*
 
 
 
@@ -623,7 +623,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[send](../interfaces/ichannel.md#send)*
 
-*Defined in [channel.ts:56](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L56)*
+*Defined in [channel.ts:56](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L56)*
 
 
 
@@ -655,7 +655,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[sendMsg](../interfaces/ichannel.md#sendmsg)*
 
-*Defined in [channel.ts:57](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L57)*
+*Defined in [channel.ts:57](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L57)*
 
 
 
@@ -688,7 +688,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[serialize](../interfaces/ichannel.md#serialize)*
 
-*Defined in [channel.ts:60](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L60)*
+*Defined in [channel.ts:60](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L60)*
 
 
 
@@ -720,7 +720,7 @@ ___
 
 *Inherited from [IChannel](../interfaces/ichannel.md).[unpack](../interfaces/ichannel.md#unpack)*
 
-*Defined in [channel.ts:59](https://github.com/AncientSouls/Channels/blob/1389a58/src/lib/channel.ts#L59)*
+*Defined in [channel.ts:59](https://github.com/AncientSouls/Channels/blob/690ea90/src/lib/channel.ts#L59)*
 
 
 
