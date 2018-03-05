@@ -44,7 +44,7 @@ ___
 
 **●  connect**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:29](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channels-manager.ts#L29)*
+*Defined in [channels-manager.ts:29](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channels-manager.ts#L29)*
 
 
 
@@ -58,7 +58,7 @@ ___
 
 **●  connected**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:30](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channels-manager.ts#L30)*
+*Defined in [channels-manager.ts:30](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channels-manager.ts#L30)*
 
 
 
@@ -88,7 +88,7 @@ ___
 
 **●  disconnect**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:31](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channels-manager.ts#L31)*
+*Defined in [channels-manager.ts:31](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channels-manager.ts#L31)*
 
 
 
@@ -102,7 +102,7 @@ ___
 
 **●  disconnected**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:32](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channels-manager.ts#L32)*
+*Defined in [channels-manager.ts:32](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channels-manager.ts#L32)*
 
 
 
@@ -116,7 +116,7 @@ ___
 
 **●  got**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:33](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channels-manager.ts#L33)*
+*Defined in [channels-manager.ts:33](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channels-manager.ts#L33)*
 
 
 
@@ -130,7 +130,7 @@ ___
 
 **●  pack**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:35](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channels-manager.ts#L35)*
+*Defined in [channels-manager.ts:35](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channels-manager.ts#L35)*
 
 
 
@@ -160,7 +160,7 @@ ___
 
 **●  send**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:34](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channels-manager.ts#L34)*
+*Defined in [channels-manager.ts:34](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channels-manager.ts#L34)*
 
 
 
@@ -174,7 +174,7 @@ ___
 
 **●  unpack**:  *[IChannelsManagerEventData](ichannelsmanagereventdata.md)* 
 
-*Defined in [channels-manager.ts:36](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channels-manager.ts#L36)*
+*Defined in [channels-manager.ts:36](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channels-manager.ts#L36)*
 
 
 

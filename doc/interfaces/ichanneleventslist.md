@@ -28,7 +28,7 @@
 
 **●  connect**:  *[IChannelPkgEventData](ichannelpkgeventdata.md)* 
 
-*Defined in [channel.ts:38](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channel.ts#L38)*
+*Defined in [channel.ts:38](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channel.ts#L38)*
 
 
 
@@ -42,7 +42,7 @@ ___
 
 **●  connected**:  *[IChannelPkgEventData](ichannelpkgeventdata.md)* 
 
-*Defined in [channel.ts:39](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channel.ts#L39)*
+*Defined in [channel.ts:39](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channel.ts#L39)*
 
 
 
@@ -72,7 +72,7 @@ ___
 
 **●  disconnect**:  *[IChannelPkgEventData](ichannelpkgeventdata.md)* 
 
-*Defined in [channel.ts:40](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channel.ts#L40)*
+*Defined in [channel.ts:40](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channel.ts#L40)*
 
 
 
@@ -86,7 +86,7 @@ ___
 
 **●  disconnected**:  *[IChannelPkgEventData](ichannelpkgeventdata.md)* 
 
-*Defined in [channel.ts:41](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channel.ts#L41)*
+*Defined in [channel.ts:41](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channel.ts#L41)*
 
 
 
@@ -100,7 +100,7 @@ ___
 
 **●  got**:  *[IChannelPkgEventData](ichannelpkgeventdata.md)* 
 
-*Defined in [channel.ts:42](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channel.ts#L42)*
+*Defined in [channel.ts:42](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channel.ts#L42)*
 
 
 
@@ -114,7 +114,7 @@ ___
 
 **●  pack**:  *[IChannelPkgEventData](ichannelpkgeventdata.md)* 
 
-*Defined in [channel.ts:44](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channel.ts#L44)*
+*Defined in [channel.ts:44](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channel.ts#L44)*
 
 
 
@@ -128,7 +128,7 @@ ___
 
 **●  send**:  *[IChannelPkgEventData](ichannelpkgeventdata.md)* 
 
-*Defined in [channel.ts:43](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channel.ts#L43)*
+*Defined in [channel.ts:43](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channel.ts#L43)*
 
 
 
@@ -142,7 +142,7 @@ ___
 
 **●  unpack**:  *[IChannelPkgEventData](ichannelpkgeventdata.md)* 
 
-*Defined in [channel.ts:45](https://github.com/AncientSouls/Channels/blob/7f76999/src/lib/channel.ts#L45)*
+*Defined in [channel.ts:45](https://github.com/AncientSouls/Channels/blob/7c133e3/src/lib/channel.ts#L45)*
 
 
 
