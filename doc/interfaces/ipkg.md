@@ -12,7 +12,7 @@
 
 **●  channel**:  *[IPkgSectionChannel](ipkgsectionchannel.md)* 
 
-*Defined in [channel.ts:25](https://github.com/AncientSouls/Channels/blob/5f74e67/src/lib/channel.ts#L25)*
+*Defined in [channel.ts:25](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L25)*
 
 
 
@@ -26,7 +26,7 @@ ___
 
 **●  data**:  *`any`* 
 
-*Defined in [channel.ts:26](https://github.com/AncientSouls/Channels/blob/5f74e67/src/lib/channel.ts#L26)*
+*Defined in [channel.ts:26](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L26)*
 
 
 

@@ -25,7 +25,7 @@
 
 **●  channel**:  *[TChannel](../#tchannel)* 
 
-*Defined in [channel.ts:32](https://github.com/AncientSouls/Channels/blob/5f74e67/src/lib/channel.ts#L32)*
+*Defined in [channel.ts:32](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L32)*
 
 
 
@@ -39,7 +39,7 @@ ___
 
 **●  msg**:  *[TMsg](../#tmsg)* 
 
-*Defined in [channel.ts:34](https://github.com/AncientSouls/Channels/blob/5f74e67/src/lib/channel.ts#L34)*
+*Defined in [channel.ts:34](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L34)*
 
 
 
@@ -53,7 +53,7 @@ ___
 
 **●  pkg**:  *[IPkg](ipkg.md)* 
 
-*Defined in [channel.ts:33](https://github.com/AncientSouls/Channels/blob/5f74e67/src/lib/channel.ts#L33)*
+*Defined in [channel.ts:33](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L33)*
 
 
 

@@ -12,7 +12,7 @@
 
 **●  type**:  *[PackageType](../enums/packagetype.md)* 
 
-*Defined in [channel.ts:21](https://github.com/AncientSouls/Channels/blob/5f74e67/src/lib/channel.ts#L21)*
+*Defined in [channel.ts:21](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L21)*
 
 
 
