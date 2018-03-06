@@ -1,9 +1,8 @@
 
-# Ancient Souls Channels
+# Ancient Channels
 
 Abstract modular channels concept.
 
-[![GitHub Release](https://img.shields.io/github/release/AncientSouls/Channels.svg)](https://github.com/AncientSouls/Channels/releases)
 [![NPM](https://img.shields.io/npm/v/ancient-channels.svg)](https://www.npmjs.com/package/ancient-channels)
 [![Build Status](https://travis-ci.org/AncientSouls/Channels.svg?branch=master)](https://travis-ci.org/AncientSouls/Channels)
 [![Read the Docs](https://img.shields.io/readthedocs/pip.svg)](https://ancientsouls.github.io/)
@@ -62,7 +61,7 @@ Abstract modular channels concept.
 
 **Τ TChannel**:  *[IChannel](interfaces/ichannel.md)[IChannelEventsList](interfaces/ichanneleventslist.md)* 
 
-*Defined in [channel.ts:12](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L12)*
+*Defined in [channel.ts:12](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L12)*
 
 
 
@@ -76,7 +75,7 @@ ___
 
 **Τ TChannelsManager**:  *[IChannelsManager](interfaces/ichannelsmanager.md)[TChannel](#tchannel), [IChannelsManagerEventsList](interfaces/ichannelsmanagereventslist.md)* 
 
-*Defined in [channels-manager.ts:22](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channels-manager.ts#L22)*
+*Defined in [channels-manager.ts:22](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channels-manager.ts#L22)*
 
 
 
@@ -90,7 +89,7 @@ ___
 
 **Τ TMsg**:  *`string`* 
 
-*Defined in [channel.ts:29](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L29)*
+*Defined in [channel.ts:29](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L29)*
 
 
 
@@ -106,7 +105,7 @@ ___
 
 **●  MixedChannel**:  *`TClass`.<[IChannel](interfaces/ichannel.md)[IChannelEventsList](interfaces/ichanneleventslist.md)>*  =  mixin(Node)
 
-*Defined in [channel.ts:153](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L153)*
+*Defined in [channel.ts:153](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L153)*
 
 
 
@@ -120,7 +119,7 @@ ___
 
 **●  MixedChannelsManager**:  *`TClass`.<[TChannelsManager](#tchannelsmanager)>*  =  mixin(Manager)
 
-*Defined in [channels-manager.ts:51](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channels-manager.ts#L51)*
+*Defined in [channels-manager.ts:51](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channels-manager.ts#L51)*
 
 
 
@@ -138,7 +137,7 @@ ___
 
 
 
-*Defined in [create-local-transport.ts:6](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/create-local-transport.ts#L6)*
+*Defined in [create-local-transport.ts:6](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/create-local-transport.ts#L6)*
 
 
 
@@ -169,7 +168,7 @@ ___
 
 
 
-*Defined in [channel.ts:64](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L64)*
+*Defined in [channel.ts:64](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L64)*
 
 
 

@@ -149,7 +149,7 @@ ___
 
 **●  isConnected**:  *`boolean`* 
 
-*Defined in [channel.ts:49](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L49)*
+*Defined in [channel.ts:49](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L49)*
 
 
 
@@ -183,7 +183,7 @@ ___
 
 
 
-*Defined in [channel.ts:50](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L50)*
+*Defined in [channel.ts:50](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L50)*
 
 
 
@@ -213,7 +213,7 @@ ___
 
 
 
-*Defined in [channel.ts:51](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L51)*
+*Defined in [channel.ts:51](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L51)*
 
 
 
@@ -244,7 +244,7 @@ ___
 
 
 
-*Defined in [channel.ts:61](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L61)*
+*Defined in [channel.ts:61](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L61)*
 
 
 
@@ -274,7 +274,7 @@ ___
 
 
 
-*Defined in [channel.ts:52](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L52)*
+*Defined in [channel.ts:52](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L52)*
 
 
 
@@ -304,7 +304,7 @@ ___
 
 
 
-*Defined in [channel.ts:53](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L53)*
+*Defined in [channel.ts:53](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L53)*
 
 
 
@@ -371,7 +371,7 @@ ___
 
 
 
-*Defined in [channel.ts:55](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L55)*
+*Defined in [channel.ts:55](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L55)*
 
 
 
@@ -401,7 +401,7 @@ ___
 
 
 
-*Defined in [channel.ts:54](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L54)*
+*Defined in [channel.ts:54](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L54)*
 
 
 
@@ -540,7 +540,7 @@ ___
 
 
 
-*Defined in [channel.ts:58](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L58)*
+*Defined in [channel.ts:58](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L58)*
 
 
 
@@ -570,7 +570,7 @@ ___
 
 
 
-*Defined in [channel.ts:56](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L56)*
+*Defined in [channel.ts:56](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L56)*
 
 
 
@@ -600,7 +600,7 @@ ___
 
 
 
-*Defined in [channel.ts:57](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L57)*
+*Defined in [channel.ts:57](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L57)*
 
 
 
@@ -631,7 +631,7 @@ ___
 
 
 
-*Defined in [channel.ts:60](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L60)*
+*Defined in [channel.ts:60](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L60)*
 
 
 
@@ -661,7 +661,7 @@ ___
 
 
 
-*Defined in [channel.ts:59](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L59)*
+*Defined in [channel.ts:59](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L59)*
 
 
 

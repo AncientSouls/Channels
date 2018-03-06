@@ -22,7 +22,7 @@
 
 ** Connect**:    = 2
 
-*Defined in [channel.ts:16](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L16)*
+*Defined in [channel.ts:16](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L16)*
 
 
 
@@ -36,7 +36,7 @@ ___
 
 ** Disconnect**:    = 1
 
-*Defined in [channel.ts:15](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L15)*
+*Defined in [channel.ts:15](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L15)*
 
 
 
@@ -50,7 +50,7 @@ ___
 
 ** Package**:    = 3
 
-*Defined in [channel.ts:17](https://github.com/AncientSouls/Channels/blob/a1625a9/src/lib/channel.ts#L17)*
+*Defined in [channel.ts:17](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L17)*
 
 
 
