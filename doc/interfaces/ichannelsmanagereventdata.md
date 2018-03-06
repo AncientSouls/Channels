@@ -27,7 +27,7 @@
 
 *Inherited from [IChannelPkgEventData](ichannelpkgeventdata.md).[channel](ichannelpkgeventdata.md#channel)*
 
-*Defined in [channel.ts:32](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L32)*
+*Defined in [channel.ts:32](https://github.com/AncientSouls/Channels/blob/e8621d6/src/lib/channel.ts#L32)*
 
 
 
@@ -41,7 +41,7 @@ ___
 
 **●  manager**:  *[TChannelsManager](../#tchannelsmanager)* 
 
-*Defined in [channels-manager.ts:25](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channels-manager.ts#L25)*
+*Defined in [channels-manager.ts:25](https://github.com/AncientSouls/Channels/blob/e8621d6/src/lib/channels-manager.ts#L25)*
 
 
 
@@ -57,7 +57,7 @@ ___
 
 *Inherited from [IChannelPkgEventData](ichannelpkgeventdata.md).[msg](ichannelpkgeventdata.md#msg)*
 
-*Defined in [channel.ts:34](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L34)*
+*Defined in [channel.ts:34](https://github.com/AncientSouls/Channels/blob/e8621d6/src/lib/channel.ts#L34)*
 
 
 
@@ -73,7 +73,7 @@ ___
 
 *Inherited from [IChannelPkgEventData](ichannelpkgeventdata.md).[pkg](ichannelpkgeventdata.md#pkg)*
 
-*Defined in [channel.ts:33](https://github.com/AncientSouls/Channels/blob/f1a8a5b/src/lib/channel.ts#L33)*
+*Defined in [channel.ts:33](https://github.com/AncientSouls/Channels/blob/e8621d6/src/lib/channel.ts#L33)*
 
 
 
