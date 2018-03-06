@@ -23,6 +23,9 @@
     "mocha": "^5.0.1",
     "sinon": "^4.4.2",
     "source-map-support": "^0.5.3",
+    "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.7.0",
+    "tslint-eslint-rules": "^5.1.0",
     "typescript": "^2.7.2"
   }
 }
