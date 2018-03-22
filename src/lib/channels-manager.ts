@@ -22,6 +22,12 @@ import {
 type TChannelsManager = IChannelsManager<TChannel, IChannelsManagerEventsList>;
 
 interface IChannelsManagerEventData extends IChannelPkgEventData {
+  node?: TChannel;
+  manager: TChannelsManager;
+}
+
+interface IChannelsManagerEventManagerData {
+  node: TChannel;
   manager: TChannelsManager;
 }
 
@@ -34,6 +40,8 @@ interface IChannelsManagerEventsList extends IManagerEventsList {
   send: IChannelsManagerEventData;
   pack: IChannelsManagerEventData;
   unpack: IChannelsManagerEventData;
+  added: IChannelsManagerEventManagerData;
+  removed: IChannelsManagerEventManagerData;
 }
 
 interface IChannelsManager
@@ -58,6 +66,7 @@ export {
   ChannelsManager,
   IChannelsManager,
   IChannelsManagerEventData,
+  IChannelsManagerEventManagerData,
   IChannelsManagerEventsList,
   TChannelsManager,
 };
