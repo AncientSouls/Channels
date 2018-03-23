@@ -1,6 +1,6 @@
 {
   "name": "ancient-channels",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Abstract modular channels concept.",
   "bugs": "https://github.com/AncientSouls/Channels/issues",
   "repository": "AncientSouls/Channels",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.5",
-    "ancient-mixins": "^0.0.0"
+    "ancient-mixins": "^0.0.11"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.48",
