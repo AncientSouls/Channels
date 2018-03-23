@@ -6,14 +6,15 @@ function default_1() {
     describe('ChannelsManager:', () => {
         it('connected() / disconnected()', () => {
             const manager = new channels_manager_1.ChannelsManager();
-            manager.on('connected', ({ channel }) => {
-                chai_1.assert.equal(manager.nodes[channel.id], channel);
+            manager.list.on('connected', ({ channel }) => {
+                chai_1.assert.equal(manager.list.nodes[channel.id], channel);
                 chai_1.assert.isTrue(channel.isConnected);
             });
-            manager.on('disconnected', ({ channel }) => {
-                chai_1.assert.equal(manager.nodes[channel.id], channel);
+            manager.list.on('disconnected', ({ channel }) => {
+                chai_1.assert.equal(manager.list.nodes[channel.id], channel);
             });
-            const channel = manager.create();
+            const channel = new manager.Node();
+            manager.add(channel);
             channel.on('send', ({ channel, msg }) => channel.got(msg));
             channel.connect();
             chai_1.assert.isTrue(channel.isConnected);

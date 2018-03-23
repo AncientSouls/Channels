@@ -22,27 +22,10 @@ import {
 type TChannelsManager = IChannelsManager<TChannel, IChannelsManagerEventsList>;
 
 interface IChannelsManagerEventData extends IChannelPkgEventData {
-  node?: TChannel;
   manager: TChannelsManager;
 }
 
-interface IChannelsManagerEventManagerData {
-  node: TChannel;
-  manager: TChannelsManager;
-}
-
-interface IChannelsManagerEventsList extends IManagerEventsList {
-  connect: IChannelsManagerEventData;
-  connected: IChannelsManagerEventData;
-  disconnect: IChannelsManagerEventData;
-  disconnected: IChannelsManagerEventData;
-  got: IChannelsManagerEventData;
-  send: IChannelsManagerEventData;
-  pack: IChannelsManagerEventData;
-  unpack: IChannelsManagerEventData;
-  added: IChannelsManagerEventManagerData;
-  removed: IChannelsManagerEventManagerData;
-}
+interface IChannelsManagerEventsList extends IManagerEventsList {}
 
 interface IChannelsManager
 <IN extends TChannel, IEventsList extends IChannelsManagerEventsList>
@@ -66,7 +49,6 @@ export {
   ChannelsManager,
   IChannelsManager,
   IChannelsManagerEventData,
-  IChannelsManagerEventManagerData,
   IChannelsManagerEventsList,
   TChannelsManager,
 };
