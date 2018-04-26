@@ -1,5 +1,4 @@
 import { assert } from 'chai';
-import * as sinon from 'sinon';
 
 import {
   Channel,
@@ -10,6 +9,7 @@ export default function () {
     it(`connect / send / got / pack / unpack / disconnect`, () => {
       const c1 = new Channel();
       const c2 = new Channel();
+      let c1Got = false;
       
       c1.on('send', ({ channel, pkg, msg }) => c2.got(msg));
       c2.on('send', ({ channel, pkg, msg }) => c1.got(msg));
@@ -22,15 +22,14 @@ export default function () {
       assert.isTrue(c1.isConnected);
       assert.isTrue(c2.isConnected);
       
-      const c1Got = sinon.stub();
       c1.on('pack', ({ channel, pkg, msg }) => pkg.data += pkg.data);
       c2.on('got', ({ channel, pkg, msg }) => {
-        c1Got();
+        c1Got = true;
         assert.equal(pkg.data, 246);
       });
       
       c1.send(123);
-      assert.isTrue(c1Got.called);
+      assert.isTrue(c1Got);
       
       c2.disconnect();
       
