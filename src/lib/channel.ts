@@ -9,32 +9,32 @@ import {
   INodeEventsList,
 } from 'ancient-mixins/lib/node';
 
-type TChannel =  IChannel<IChannelEventsList>;
+export type TChannel = IChannel<IChannelEventsList>;
 
-enum PackageType {
+export enum PackageType {
   Disconnect = 1,
   Connect = 2,
   Package = 3,
 }
 
-interface IPkgSectionChannel {
+export interface IPkgSectionChannel {
   type: PackageType;
 }
 
-interface IPkg {
+export interface IPkg {
   channel: IPkgSectionChannel;
   data: any;
 }
 
-type TMsg = string;
+export type TMsg = string;
 
-interface IChannelPkgEventData {
+export interface IChannelPkgEventData {
   channel: TChannel;
   pkg?: IPkg;
   msg?: TMsg;
 }
 
-interface IChannelEventsList extends INodeEventsList {
+export interface IChannelEventsList extends INodeEventsList {
   connect: IChannelPkgEventData;
   connected: IChannelPkgEventData;
   disconnect: IChannelPkgEventData;
@@ -45,7 +45,7 @@ interface IChannelEventsList extends INodeEventsList {
   unpack: IChannelPkgEventData;
 }
 
-interface IChannel<IEventsList extends IChannelEventsList> extends INode<IEventsList> {
+export interface IChannel<IEventsList extends IChannelEventsList> extends INode<IEventsList> {
   isConnected: boolean;
   connect(data?: any): void;
   connected(pkg?: IPkg, msg?: TMsg): void;
@@ -61,7 +61,7 @@ interface IChannel<IEventsList extends IChannelEventsList> extends INode<IEvents
   deserialize(msg?: TMsg): any;
 }
 
-function mixin<T extends TClass<IInstance>>(
+export function mixin<T extends TClass<IInstance>>(
   superClass: T,
 ): any {
   return class Channel extends superClass {
@@ -150,20 +150,5 @@ function mixin<T extends TClass<IInstance>>(
   };
 }
 
-const MixedChannel: TClass<IChannel<IChannelEventsList>> = mixin(Node);
-class Channel extends MixedChannel {}
-
-export {
-  mixin as default,
-  mixin,
-  MixedChannel,
-  Channel,
-  IChannel,
-  PackageType,
-  IPkg,
-  IPkgSectionChannel,
-  TMsg,
-  IChannelPkgEventData,
-  IChannelEventsList,
-  TChannel,
-};
+export const MixedChannel: TClass<IChannel<IChannelEventsList>> = mixin(Node);
+export class Channel extends MixedChannel {}

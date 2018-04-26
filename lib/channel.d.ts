@@ -1,25 +1,25 @@
 import { TClass, IInstance } from 'ancient-mixins/lib/mixins';
 import { INode, INodeEventsList } from 'ancient-mixins/lib/node';
-declare type TChannel = IChannel<IChannelEventsList>;
-declare enum PackageType {
+export declare type TChannel = IChannel<IChannelEventsList>;
+export declare enum PackageType {
     Disconnect = 1,
     Connect = 2,
     Package = 3,
 }
-interface IPkgSectionChannel {
+export interface IPkgSectionChannel {
     type: PackageType;
 }
-interface IPkg {
+export interface IPkg {
     channel: IPkgSectionChannel;
     data: any;
 }
-declare type TMsg = string;
-interface IChannelPkgEventData {
+export declare type TMsg = string;
+export interface IChannelPkgEventData {
     channel: TChannel;
     pkg?: IPkg;
     msg?: TMsg;
 }
-interface IChannelEventsList extends INodeEventsList {
+export interface IChannelEventsList extends INodeEventsList {
     connect: IChannelPkgEventData;
     connected: IChannelPkgEventData;
     disconnect: IChannelPkgEventData;
@@ -29,7 +29,7 @@ interface IChannelEventsList extends INodeEventsList {
     pack: IChannelPkgEventData;
     unpack: IChannelPkgEventData;
 }
-interface IChannel<IEventsList extends IChannelEventsList> extends INode<IEventsList> {
+export interface IChannel<IEventsList extends IChannelEventsList> extends INode<IEventsList> {
     isConnected: boolean;
     connect(data?: any): void;
     connected(pkg?: IPkg, msg?: TMsg): void;
@@ -50,8 +50,7 @@ interface IChannel<IEventsList extends IChannelEventsList> extends INode<IEvents
     serialize(pkg?: IPkg): any;
     deserialize(msg?: TMsg): any;
 }
-declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
-declare const MixedChannel: TClass<IChannel<IChannelEventsList>>;
-declare class Channel extends MixedChannel {
+export declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
+export declare const MixedChannel: TClass<IChannel<IChannelEventsList>>;
+export declare class Channel extends MixedChannel {
 }
-export { mixin as default, mixin, MixedChannel, Channel, IChannel, PackageType, IPkg, IPkgSectionChannel, TMsg, IChannelPkgEventData, IChannelEventsList, TChannel };
