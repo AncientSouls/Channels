@@ -1,41 +1,36 @@
 import { assert } from 'chai';
-import * as sinon from 'sinon';
 
 import {
   Channel,
 } from '../lib/channel';
 
+import createLocalTransport from '../lib/create-local-transport';
+
 export default function () {
   describe('Channel:', () => {
-    it(`connect / send / got / pack / unpack / disconnect`, () => {
+    it(`connect / connected / ready / get / got / disconnect / disconnected`, (done) => {
       const c1 = new Channel();
       const c2 = new Channel();
+
+      const data = { num: 123 };
       
-      c1.on('send', ({ channel, pkg, msg }) => c2.got(msg));
-      c2.on('send', ({ channel, pkg, msg }) => c1.got(msg));
+      const getter = () => data;
+      c1.getter = c2.getter = getter;
       
-      assert.isFalse(c1.isConnected);
-      assert.isFalse(c2.isConnected);
-      
-      c1.connect();
-      
-      assert.isTrue(c1.isConnected);
-      assert.isTrue(c2.isConnected);
-      
-      const c1Got = sinon.stub();
-      c1.on('pack', ({ channel, pkg, msg }) => pkg.data += pkg.data);
-      c2.on('got', ({ channel, pkg, msg }) => {
-        c1Got();
-        assert.equal(pkg.data, 246);
+      createLocalTransport(c1, c2);
+
+      c1.on('get', ({ channel, data }) => data.num += data.num);
+      c2.once('got', ({ channel, data }) => {
+        assert.equal(data.num, 246);
+        channel.ready();
       });
-      
-      c1.send(123);
-      assert.isTrue(c1Got.called);
-      
-      c2.disconnect();
-      
-      assert.isFalse(c1.isConnected);
-      assert.isFalse(c2.isConnected);
+
+      c1.once('got', ({ channel, data }) => {
+        assert.equal(data.num, 246);
+        done();
+      });
+
+      c1.ready();
     });
   });
 }
