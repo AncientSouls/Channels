@@ -6,7 +6,7 @@ export interface IChannelEventsList extends INodeEventsList {
         data: any;
         channel: TChannel;
     };
-    send: {
+    ready: {
         channel: TChannel;
     };
     get: {
@@ -18,10 +18,10 @@ export interface IChannelGetter<result extends any> {
     (): Promise<result> | result;
 }
 export interface IChannel<IEventsList extends IChannelEventsList> extends INode<IEventsList> {
-    sending: boolean;
+    isReading: boolean;
     getter?: IChannelGetter<any>;
     got(data?: Promise<any> | any): void;
-    send(): void;
+    ready(): void;
     get(): Promise<any>;
 }
 export declare function mixin<T extends TClass<IInstance>>(superClass: T): any;
