@@ -18,7 +18,7 @@ export interface IChannelGetter<result extends any> {
     (): Promise<result> | result;
 }
 export interface IChannel<IEventsList extends IChannelEventsList> extends INode<IEventsList> {
-    isReading: boolean;
+    isReady: boolean;
     getter?: IChannelGetter<any>;
     got(data?: Promise<any> | any): void;
     ready(): void;
