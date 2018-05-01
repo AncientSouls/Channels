@@ -32,5 +32,15 @@ export default function () {
 
       c1.ready();
     });
+    it(`Docs example`, async () => {
+      const ch = new Channel();
+      const data = { num: 123 };
+      ch.getter = () => data;
+      ch.on('get', ({ channel, data }) => data ? data.num += data.num : null);
+      
+      assert.equal(await ch.get(), undefined); // undefined
+      ch.ready();
+      assert.deepEqual(await ch.get(), { num: 246 }); // 246
+    });
   });
 }

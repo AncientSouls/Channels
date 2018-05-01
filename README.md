@@ -26,33 +26,16 @@ import {
   Channel,
 } from 'ancient-channel/lib/channel';
 
-import createLocalTransport from 'ancient-channel/lib/create-local-transport';
+const start = async () => {
+  const ch = new Channel();
+  const data = { num: 123 };
 
-const c1 = new Channel();
-const c2 = new Channel();
+  ch.getter = () => data;
+  ch.on('get', ({ channel, data }) => data.num += data.num);
 
-const data = { num: 123 };
-
-let c1got, c2got;
-const getter = () => data;
-c1.getter = c2.getter = getter;
-
-createLocalTransport(c1, c2);
-
-c1.on('get', ({ channel, data }) => data.num += data.num);
-c2.once('got', ({ channel, data }) => {
-  c2got = data.num === 246;
-  channel.ready();
-});
-
-c1.once('got', ({ channel, data }) => {
-  c1got = data.num === 246;
-});
-
-c1got; // undefined
-c2got; // undefined
-
-c1.ready();
-c1got; // true
-c2got; // true
+  await ch.get(); // undefined
+  ch.ready();
+  await ch.get(); // 246
+}
+start();
 ```
